@@ -11,6 +11,7 @@ const createToken = (id:string) => {
     })
 }
 const login = async (req:any, res:any) => {
+	console.log(req.body)
 	try{
 		const {email, password} = req.body;
 				console.log(email,password)

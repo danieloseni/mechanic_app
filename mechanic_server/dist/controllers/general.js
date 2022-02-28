@@ -18,6 +18,7 @@ const createToken = (id) => {
     });
 };
 const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log(req.body);
     try {
         const { email, password } = req.body;
         console.log(email, password);

@@ -1,5 +1,15 @@
 export {}
 const User = require('../models/users');
+const jwt = require('jsonwebtoken');
+
+const maxAge = 7 * 24 * 60 * 60; //1 week
+
+const createToken = (id:string) => {
+
+    return jwt.sign({id}, 'A good man never hits a woman Because true power doesn\'t let little things get to them Only the weak see the needd to fight and hit people in every little situation', {
+        expiresIn: maxAge
+    })
+}
 
 const get_mechanics = async (req:any, res:any) => {
 	console.log('mechanic endpoint hit')
@@ -9,10 +19,13 @@ const get_mechanics = async (req:any, res:any) => {
 }
 
 const register = async (req:any, res:any) => {
+	console.log('register was hit');
 	const {firstname, lastname, email, password, phone} = req.body;
 
-	const user = await User.create({firstname, lastname, email, password, phone, role: "mechanic"})
-	res.json(user)
+	const user = await User.create({firstname, lastname, email, password, phone, role: "mechanic"});
+	const { role, id} = user;
+
+	res.json({firstname, lastname, email, phone, role, id, jwt: createToken(id)});
 }
 
 module.exports = {
