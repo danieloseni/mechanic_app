@@ -18,7 +18,7 @@ export default class AxiosClient{
         console.log(this.url)
         this.axiosInstance.interceptors.request.use(config => {
             if(this.authenticatedRequest){
-                config.headers!.Authorization = "Bearer " + store.getState().user.token
+                config.headers!.Authorization = "Bearer " + store.getState().user.token;
             }
             //config.headers!['Content-Type'] = "multipart/form-data"
             //config.headers!['Content-Type'] = "application/json"
