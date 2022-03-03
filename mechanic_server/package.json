@@ -4,7 +4,9 @@
   "description": "",
   "main": "dist/app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "publishToHeroku": "cd ../ && git subtree push --prefix mechanic_server heroku-mechanic-app-server master || true",
+    "start": "nodemon"
   },
   "keywords": [],
   "author": "",

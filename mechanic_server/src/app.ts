@@ -51,7 +51,7 @@ app.get("/", (req:any, res:any) => {
 
 const port = process.env.PORT || 5000;
 
-mongoose.connect('mongodb://localhost/mechanic-app').then(() => {
+mongoose.connect(process.env.DATABASE_URL || 'mongodb://localhost/mechanic-app').then(() => {
 
    
 	app.listen(port, () => {
