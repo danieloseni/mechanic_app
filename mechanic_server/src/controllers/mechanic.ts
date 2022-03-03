@@ -1,6 +1,8 @@
 export {}
 const User = require('../models/users');
+const Jobs = require('../models/job');
 const jwt = require('jsonwebtoken');
+const {rejectRequest, acceptRequest} = require('../adapters/firebase/firestore/firestorecontroller');
 
 const maxAge = 7 * 24 * 60 * 60; //1 week
 
@@ -28,7 +30,54 @@ const register = async (req:any, res:any) => {
 	res.json({firstname, lastname, email, phone, role, id, jwt: createToken(id)});
 }
 
+const reject_request = async(req:any, res:any) => {
+	const {jobId} = req.body;
+
+	const {tokenDetails: {id}, tokenDetails} = req;
+	if(tokenDetails){
+		res.json({message: "done"})
+
+		
+		//send request to  firebase rtb
+		rejectRequest({
+		jobId,
+		
+		mechanicId:id,
+		
+		
+	})
+
+
+	}else {
+		res.status(401).json({message: "Unauthorized"});
+	}
+}
+
+const accept_request = async(req:any, res:any) => {
+	const {jobId} = req.body;
+
+	const {tokenDetails: {id}, tokenDetails} = req;
+	if(tokenDetails){
+		await Jobs.findOneAndUpdate({_id: jobId}, {assignedMechanic: id, dateAssigned: new Date()});
+
+		res.json({message: "done"})
+
+		
+		//send request to  firebase rtb
+		acceptRequest({
+			jobId,
+			mechanicId:id,
+		})
+
+
+	}else {
+		res.status(401).json({message: "Unauthorized"});
+	}
+}
+
 module.exports = {
 	register,
-	get_mechanics
+	get_mechanics,
+	reject_request,
+	accept_request
 }

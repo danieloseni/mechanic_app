@@ -90,9 +90,9 @@ const send_request = async(req:any, res:any) => {
 		//send request to  firebase rtb
 		setRequest({
 		jobId,
-		client: {firstname, lastname, email, phone, id}
+		client: {firstname, lastname, email, phone, id},
 		mechanicId,
-		vehicle: {brand, make, model, color, plateNumber, id:vehicleid}
+		vehicle: {brand, make, model, color, plateNumber, id:vehicleid},
 		declined: false
 	})
 
@@ -101,6 +101,8 @@ const send_request = async(req:any, res:any) => {
 		res.status(401).json({message: "Unauthorized"});
 	}
 }
+
+
 
 module.exports = {
 	register, add_vehicle, get_vehicles, add_job, send_request

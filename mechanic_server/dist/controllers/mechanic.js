@@ -10,7 +10,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const User = require('../models/users');
+const Jobs = require('../models/job');
 const jwt = require('jsonwebtoken');
+const { rejectRequest, acceptRequest } = require('../adapters/firebase/firestore/firestorecontroller');
 const maxAge = 7 * 24 * 60 * 60; //1 week
 const createToken = (id) => {
     return jwt.sign({ id }, 'A good man never hits a woman Because true power doesn\'t let little things get to them Only the weak see the needd to fight and hit people in every little situation', {
@@ -29,7 +31,40 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { role, id } = user;
     res.json({ firstname, lastname, email, phone, role, id, jwt: createToken(id) });
 });
+const reject_request = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { jobId } = req.body;
+    const { tokenDetails: { id }, tokenDetails } = req;
+    if (tokenDetails) {
+        res.json({ message: "done" });
+        //send request to  firebase rtb
+        rejectRequest({
+            jobId,
+            mechanicId: id,
+        });
+    }
+    else {
+        res.status(401).json({ message: "Unauthorized" });
+    }
+});
+const accept_request = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { jobId } = req.body;
+    const { tokenDetails: { id }, tokenDetails } = req;
+    if (tokenDetails) {
+        yield Jobs.findOneAndUpdate({ _id: jobId }, { assignedMechanic: id, dateAssigned: new Date() });
+        res.json({ message: "done" });
+        //send request to  firebase rtb
+        acceptRequest({
+            jobId,
+            mechanicId: id,
+        });
+    }
+    else {
+        res.status(401).json({ message: "Unauthorized" });
+    }
+});
 module.exports = {
     register,
-    get_mechanics
+    get_mechanics,
+    reject_request,
+    accept_request
 };

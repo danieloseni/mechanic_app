@@ -3,6 +3,7 @@ import React, { FormEvent, ReactElement, useState } from 'react'
 import { ChangeEvent } from 'react';
 import { login as loginAction } from 'redux/actions/userActions';
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
 
 type Props = {
     login?: (credentials: LoginCredentials) => void,
@@ -43,6 +44,11 @@ const Login = ({login, user}: Props):ReactElement => {
             <div>Password</div>
             <input type="password" name="password" value={password} onChange={onChange} />
 
+            <br />
+         
+            <div>
+                Don't have an account? <Link to="/register">Create a regular account</Link> or <Link to="/mechanics/register">Create a mechanic's account</Link>
+            </div>
             <br />
             <button>Done</button>
         </form>

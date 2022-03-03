@@ -5,10 +5,12 @@ interface Props {
     model: string,
     make: string,
     color: string,
-    plateNumber: string
+    plateNumber: string,
+    id?: string
+    addJob: (vehicleId: string) => void
 }
 
-const VehicleTile = ({ brand, model, make, color, plateNumber }: Props) => {
+const VehicleTile = ({ brand, model, make, color, plateNumber, id, addJob }: Props) => {
 
     const cardStyle = {
         border: "1px solid #e1e1e1",
@@ -19,51 +21,20 @@ const VehicleTile = ({ brand, model, make, color, plateNumber }: Props) => {
     }
     return (
         <>
-            <div style={cardStyle}>
+            <div style={cardStyle} onClick={(e) => {
+                if(id)
+                    addJob(id)
+            }}>
+                
                 <div>{brand}</div>
                 <div>{make}</div>
                 <div>{model}</div>
                 <div>{plateNumber}</div>
                 <div>{color}</div>
+
             </div>
 
-            <div style={cardStyle}>
-                <div>{brand}</div>
-                <div>{make}</div>
-                <div>{model}</div>
-                <div>{plateNumber}</div>
-                <div>{color}</div>
-            </div>
-            <div style={cardStyle}>
-                <div>{brand}</div>
-                <div>{make}</div>
-                <div>{model}</div>
-                <div>{plateNumber}</div>
-                <div>{color}</div>
-            </div>
-
-            <div style={cardStyle}>
-                <div>{brand}</div>
-                <div>{make}</div>
-                <div>{model}</div>
-                <div>{plateNumber}</div>
-                <div>{color}</div>
-            </div>
-            <div style={cardStyle}>
-                <div>{brand}</div>
-                <div>{make}</div>
-                <div>{model}</div>
-                <div>{plateNumber}</div>
-                <div>{color}</div>
-            </div>
-
-            <div style={cardStyle}>
-                <div>{brand}</div>
-                <div>{make}</div>
-                <div>{model}</div>
-                <div>{plateNumber}</div>
-                <div>{color}</div>
-            </div>
+            
         </>
     )
 }

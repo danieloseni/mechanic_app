@@ -47,8 +47,27 @@ interface MechanicRequest{
 
 const setRequest = async (request: MechanicRequest) => {
 	await setup();
-	let requestRef = ref.child('requests');
-	requestRef.push().set(request)
+	let requestRef = ref.child(`requests/${request.jobId}/${request.mechanicId}`);
+	// requestRef.push().set(request)
+	 requestRef.set(request)
 }
 
-module.exports = {set,  setRequest}
+
+const rejectRequest = async (request: MechanicRequest) => {
+	await setup();
+	let requestRef = ref.child(`requests/${request.jobId}/${request.mechanicId}`);
+	// requestRef.push().set(request)
+	 requestRef.update({declined: true})
+}
+
+const acceptRequest = async (request: MechanicRequest) => {
+	await setup();
+	let jobRef = ref.child(`requests/${request.jobId}`);
+	let requestRef = ref.child(`requests/${request.jobId}/${request.mechanicId}`);
+
+	// requestRef.push().set(request)
+	 requestRef.remove()
+	 jobRef.remove()
+}
+
+module.exports = {set,  setRequest, rejectRequest, acceptRequest}

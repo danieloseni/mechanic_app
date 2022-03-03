@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const User = require('../models/users');
 const jwt = require('jsonwebtoken');
+const Job = require('../models/job');
 const maxAge = 7 * 24 * 60 * 60; //1 week
 const createToken = (id) => {
     return jwt.sign({ id }, 'A good man never hits a woman Because true power doesn\'t let little things get to them Only the weak see the needd to fight and hit people in every little situation', {
@@ -31,4 +32,14 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.status(401).json({ message: "Incorrect Credentials" });
     }
 });
-module.exports = { login };
+const get_jobs = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { tokenDetails: { id }, tokenDetails } = req;
+    if (tokenDetails) {
+        const jobs = yield Job.find({ userId: id }).populate("userId").populate("vehicleId").populate("assignedMechanic");
+        res.json(jobs);
+    }
+    else {
+        res.status(401).json({ message: "Unauthorized" });
+    }
+});
+module.exports = { login, get_jobs };

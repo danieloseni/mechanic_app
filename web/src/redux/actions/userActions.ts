@@ -12,6 +12,8 @@ export const login = (credentials: LoginCredentials) => {
                     details
                 }
             })
+            localStorage.setItem("loggedin", "true")
+            window.location.href="/"
         }
         const onFailed = () => {
 
@@ -32,6 +34,8 @@ export const register = (credentials: RegistrationCredentials, role: "mechanic" 
                     details
                 }
             })
+
+            window.location.href="/"
         }
         const onFailed = () => {
 

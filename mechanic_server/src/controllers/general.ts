@@ -1,6 +1,7 @@
 export {}
 const User = require('../models/users');
 const jwt = require('jsonwebtoken');
+const Job = require('../models/job');
 
 const maxAge = 7 * 24 * 60 * 60; //1 week
 
@@ -25,4 +26,18 @@ const login = async (req:any, res:any) => {
 		res.status(401).json({message: "Incorrect Credentials"})
 	}
 }
-module.exports = {login}
+
+const get_jobs = async (req:any, res:any) => {
+
+	const {tokenDetails: {id}, tokenDetails} = req;
+
+	if(tokenDetails){
+		const jobs = await Job.find({userId: id}).populate("userId").populate("vehicleId").populate("assignedMechanic")
+		res.json(jobs);
+		
+
+	}else {
+		res.status(401).json({message: "Unauthorized"});
+	}
+}
+module.exports = {login, get_jobs}
