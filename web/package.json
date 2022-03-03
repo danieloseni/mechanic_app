@@ -29,7 +29,10 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    
+    "start": "react-scripts start",
+    "test": "react-scripts test",
+    "build": "react-scripts build",
+    "eject": "react-scripts eject",
     "publishToHeroku": "cd ../ &&  git subtree push --prefix web heroku master || true"
   },
   "eslintConfig": {
