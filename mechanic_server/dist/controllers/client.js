@@ -70,7 +70,8 @@ const add_job = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 const send_request = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { jobId, mechanicId } = req.body;
     const { tokenDetails: { id }, tokenDetails } = req;
-    if (tokenDetails) {
+    if (tokenDetails || !jobId || !mechanicId) {
+        console.log("yes dear");
         res.json({ message: "done" });
         //fetch job details from database
         const { userId: { firstname, lastname, email, phone, id }, vehicleId: { brand, make, model, color, plateNumber, id: vehicleid } } = yield Job.findOne({ _id: jobId }).populate("userId").populate("vehicleId");

@@ -12,25 +12,19 @@ interface Props {
 
 const VehicleTile = ({ brand, model, make, color, plateNumber, id, addJob }: Props) => {
 
-    const cardStyle = {
-        border: "1px solid #e1e1e1",
-        width: "200px",
-        padding: "10px 35px",
-        flex: "1 1 auto",
-        cursor: "pointer"
-    }
+  
     return (
         <>
-            <div style={cardStyle} onClick={(e) => {
+            <div className='vehicle-card' onClick={(e) => {
                 if(id)
                     addJob(id)
             }}>
                 
-                <div>{brand}</div>
-                <div>{make}</div>
-                <div>{model}</div>
-                <div>{plateNumber}</div>
-                <div>{color}</div>
+                <div className='heading'>{brand} - {make}</div>
+                
+                <div className='details'>{model} Model ({plateNumber})</div>
+                
+                <div className='color'>{color}</div>
 
             </div>
 

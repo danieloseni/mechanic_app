@@ -81,7 +81,8 @@ const send_request = async(req:any, res:any) => {
 	const {jobId, mechanicId} = req.body;
 
 	const {tokenDetails: {id}, tokenDetails} = req;
-	if(tokenDetails){
+	if(tokenDetails || !jobId || !mechanicId){
+		console.log("yes dear")
 		res.json({message: "done"})
 
 		//fetch job details from database

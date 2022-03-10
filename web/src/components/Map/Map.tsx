@@ -2,28 +2,30 @@ import React, { useEffect, useState } from 'react'
 // import { Map as MapView, GoogleApiWrapper, Marker } from 'google-maps-react';
 import { GoogleMap, InfoWindow, Marker, withGoogleMap, withScriptjs } from "react-google-maps"
 import { connect } from 'react-redux'
-import {sendRequest as SendRequestController} from 'controllers/mechanic-controller';
+import { sendRequest as SendRequestController } from 'controllers/mechanic-controller';
 
 //@ts-ignore
 
 //AIzaSyB9CQiAzHM_ISxw6g2rLRn5hbSVpKih9a8
 interface Props {
     google?: any,
-    mechanics?:any[]
+    mechanics?: any[]
 }
 
-const Map = ({mechanics}: Props) => {
+const Map = ({ mechanics }: Props) => {
+    console.log(mechanics)
     const [currentLocation, updateCurrentLocation] = useState<{ lat: number, lng: number }>({ lat: 47.444, lng: -122.176 });
-    const sendRequest = (mechanicId:string) => {
+    const sendRequest = (mechanicId: string) => {
+
         const onSuccess = () => {
-           console.log('success')
+            console.log('success')
         }
-        const onFailed = () => {}
+        const onFailed = () => { }
         SendRequestController(mechanicId, onSuccess, onFailed);
     }
 
     const displayMarkers = () => {
-        return mechanics?.map(({latitude,longitude, email, phone, firstname, lastname, id}, index) => {
+        return mechanics?.map(({ latitude, longitude, email, phone, firstname, lastname, id }, index) => {
             return <Marker key={index}
 
                 // id={index} 
@@ -44,9 +46,23 @@ const Map = ({mechanics}: Props) => {
                     lat: latitude,
                     lng: longitude
                 }}
-                onClick={() => console.log("You clicked me!")} >
 
-                <InfoWindow onCloseClick={() => { }}>
+                onClick={(e) => {
+                   
+                    //@ts-ignore
+                    if (!window.jobId || !window.vehicleId) {
+                        window.location.href = "/vehicles"
+                    } else {
+                        
+                        //@ts-ignore
+                        window.showRequestPopup(firstname, lastname, email, phone, id, sendRequest
+                        )
+                    }
+
+                }}
+            >
+
+                {/* <InfoWindow onCloseClick={() => { }}>
 
                     <div>
                         <div>{firstname} {lastname}</div>
@@ -64,38 +80,33 @@ const Map = ({mechanics}: Props) => {
                         }>Send Request</button>
 
                     </div>
-                </InfoWindow>
+                </InfoWindow> */}
             </Marker>
         })
     }
 
     useEffect(() => {
         navigator.geolocation.getCurrentPosition((data) => {
-            updateCurrentLocation({"lat":data.coords.latitude, "lng": data.coords.longitude})
+            updateCurrentLocation({ "lat": data.coords.latitude, "lng": data.coords.longitude })
         }, (error) => { }, { enableHighAccuracy: true })
-       
+
     }, [])
 
 
-    // const mapStyles = {
-    //     width: '100vw',
-    //     height: '100vh',
-    // };
 
     return (
-        // <MapView
-        //     google={google}
-        //     initialCenter={currentLocation}
-        //     style={mapStyles}
-        //     // centerAroundCurrentLocation={true}
-        //     // center={currentLocation}
-        //     children={displayMarkers()}
 
-        // />
-
-        <GoogleMap defaultZoom={18}  center={currentLocation}>
-            {displayMarkers()}
-        </GoogleMap>
+        <>
+            {/* <div className="body-overlay">
+                
+                <div className="cta rounded-cta">
+                    Request a mechanic    
+                </div>
+            </div> */}
+            <GoogleMap defaultZoom={18} center={currentLocation}>
+                {displayMarkers()}
+            </GoogleMap>
+        </>
     )
 }
 
@@ -103,7 +114,7 @@ const Map = ({mechanics}: Props) => {
 //     apiKey: "AIzaSyB9CQiAzHM_ISxw6g2rLRn5hbSVpKih9a8"
 // })(Map)
 
-const mapStateToProps = (state:any) => ({
+const mapStateToProps = (state: any) => ({
     mechanics: state.mechanics
 })
 

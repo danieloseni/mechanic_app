@@ -2,21 +2,23 @@ import { LoginCredentials, UserInfo } from 'interfaces/authentication';
 import React, { FormEvent, ReactElement, useState } from 'react'
 import { ChangeEvent } from 'react';
 import { login as loginAction } from 'redux/actions/userActions';
-import {connect} from 'react-redux';
-import {Link} from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 type Props = {
-    login?: (credentials: LoginCredentials) => void,
+    login?: (credentials: LoginCredentials, onWrongLogins?: () => void) => void,
     user?: UserInfo
 }
 
-const Login = ({login, user}: Props):ReactElement => {
+const Login = ({ login, user }: Props): ReactElement => {
 
-  const [email, updateEmail] = useState<string>("");
-  const [password, updatePassword] = useState<string>("");
+    const [email, updateEmail] = useState<string>("");
+    const [password, updatePassword] = useState<string>("");
+    const [loading, updateLoadingStatus] = useState<boolean>(false);
+    const [error, updateError] = useState<string>("");
 
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-        switch(e.target.name){
+    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+        switch (e.target.name) {
             case "email":
                 updateEmail(e.target.value);
                 break;
@@ -24,44 +26,87 @@ const Login = ({login, user}: Props):ReactElement => {
                 updatePassword(e.target.value);
                 break;
         }
-  }
+    }
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
+    const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        updateLoadingStatus(true)
+        updateError("")
+
+        const onWrongLogins = () => {
+            updateLoadingStatus(false)
+            updateError("You have entered incorrect credentials")
+        }
+        
+        if(!loading)
         login?.({
             email, password
-        })
-  }
+        }, onWrongLogins)
+    }
 
-  return (
-    <div>
-       
-        <form onSubmit={onSubmit}>
-            <div>Email</div>
-            <input type="text" name="email" value={email} onChange={onChange} />
-
-            <br />
-            <div>Password</div>
-            <input type="password" name="password" value={password} onChange={onChange} />
-
-            <br />
-         
-            <div>
-                Don't have an account? <Link to="/register">Create a regular account</Link> or <Link to="/mechanics/register">Create a mechanic's account</Link>
+    return (
+        <div className="main flex flex-column align-items-center">
+            <div className="auth-nav">
+                <div className="logo">
+                    fixit
+                </div>
             </div>
-            <br />
-            <button>Done</button>
-        </form>
-    </div>
-  )
+
+            <div className="padded-box">
+                <div className="title">
+                    Sign into your account
+                </div>
+
+                <form onSubmit={onSubmit}>
+                    <div className="fe-group">
+
+                        <div className="fe-element">
+                            <label>Email</label>
+                            <input type="text" name="email" value={email} onChange={onChange} />
+                        </div>
+
+
+                        <div className="fe-element">
+                            <label>Password</label>
+                            <input type="password" name="password" value={password} onChange={onChange} />
+                        </div>
+
+                        {error && error?.trim?.() !== "" &&<div className="error-text">
+                        {error}
+                            </div>}
+
+                        <div className="form-button-box"><button className="cta">{loading ? "Hold on..." : "Sign in"}</button></div>
+                    </div>
+
+                    <div className="alternate-action-box">
+                        Don't have an account? 
+                        <div className="alternate-options-popup">
+                               <div className="option">
+                                    <Link to="/register">Create a regular account</Link>
+                                </div>
+                               <div className="option">
+                                    <Link to="/mechanics/register">Create a mechanic account</Link>
+                                </div>
+                            </div>
+                        <span className="primary-text pointer">Create one
+                        </span>
+                        
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+    )
 }
 
-const mapStateToProps = (state:any) => ({
+const mapStateToProps = (state: any) => ({
     user: state.user
 })
 
-const mapDispatchToProps = (dispatch:any) => ({
-    login: (credentials: LoginCredentials) => {dispatch(loginAction(credentials))}
+const mapDispatchToProps = (dispatch: any) => ({
+    login: (credentials: LoginCredentials, onWrongLogins?: () => void) => { dispatch(loginAction(credentials, onWrongLogins)) }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)

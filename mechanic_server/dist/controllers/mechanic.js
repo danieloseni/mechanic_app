@@ -27,6 +27,7 @@ const get_mechanics = (req, res) => __awaiter(void 0, void 0, void 0, function* 
 const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     console.log('register was hit');
     const { firstname, lastname, email, password, phone } = req.body;
+    console.log(firstname, lastname, email, password, phone);
     const user = yield User.create({ firstname, lastname, email, password, phone, role: "mechanic" });
     const { role, id } = user;
     res.json({ firstname, lastname, email, phone, role, id, jwt: createToken(id) });

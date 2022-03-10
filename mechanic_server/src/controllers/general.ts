@@ -32,7 +32,17 @@ const get_jobs = async (req:any, res:any) => {
 	const {tokenDetails: {id}, tokenDetails} = req;
 
 	if(tokenDetails){
-		const jobs = await Job.find({userId: id}).populate("userId").populate("vehicleId").populate("assignedMechanic")
+		const userDetails = User.findOne({_id: id});
+		console.log(userDetails)
+		let jobs:any = null
+		if(userDetails.role === "mechanic"){
+			console.log('its mechanic')
+			jobs = await Job.find({assignedMechanic: id}).populate("userId").populate("vehicleId").populate("assignedMechanic")
+
+		}else {
+			jobs = await Job.find({userId: id}).populate("userId").populate("vehicleId").populate("assignedMechanic")
+
+		}
 		res.json(jobs);
 		
 

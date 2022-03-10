@@ -28,7 +28,7 @@ interface Request {
 }
 
 const Requests = ({ user }: Props) => {
-    const [requests, updateRequests] = useState<Request[]>();
+    const [requests, updateRequests] = useState<Request[]>([]);
     const getUserRequests = useCallback(() => {
         const onData = (data: any) => {
             const jobGroups = Object.values(data);
@@ -53,9 +53,9 @@ const Requests = ({ user }: Props) => {
 
     }, [user?.userId])
 
-    const rejectRequest = (jobId: string) => {
+    const rejectRequest = (jobId: string, clientId: string) => {
         const onSuccess = () => {
-
+            updateRequests(cloneDeep(requests?.filter(request => request.client.id !== clientId)))
         }
 
         const onFailed = () => {
@@ -65,9 +65,9 @@ const Requests = ({ user }: Props) => {
         RejectRequestController(jobId, onSuccess, onFailed)
     }
 
-    const acceptRequest = (jobId: string) => {
+    const acceptRequest = (jobId: string, clientId: string) => {
         const onSuccess = () => {
-
+            updateRequests(cloneDeep(requests?.filter(request => request?.client?.id !== clientId)))
         }
 
         const onFailed = () => {
@@ -77,13 +77,6 @@ const Requests = ({ user }: Props) => {
         AcceptRequestController(jobId, onSuccess, onFailed)
     }
 
-    const cardStyle = {
-        border: "1px solid #e1e1e1",
-        width: "200px",
-        padding: "10px 35px",
-        flex: "1 1 auto",
-        cursor: "pointer"
-    }
 
   
     const containerStyle = {
@@ -99,30 +92,28 @@ const Requests = ({ user }: Props) => {
 
     return (
         <>
-            <div>Requests</div>
+            <div className='title'>Requests</div>
 
             {/*@ts-ignore*/}
             <div style={containerStyle}>
                 {
                     /*@ts-ignore*/
                     requests?.length > 0 ?
-                    requests?.map(({jobId, key, client: { firstname, lastname, email, phone }, vehicle: {brand, make, model, color, plateNumber}}) => (
-                        <div key={key} style={cardStyle} >
-                            <div>Customer</div>
-                            <div>{firstname} {lastname}</div>
-                            <div>{email}</div>
-                            <div>{phone}</div>
-                            <br />
-                            <div>Vehicle</div>
-                            <div>{brand}</div>
-                            <div>{make}</div>
-                            <div>{model}</div>
-                            <div>{plateNumber}</div>
-                            <div>{color}</div>
+                    requests?.map(({jobId, key, client: { firstname, lastname, email, phone, id }, vehicle: {brand, make, model, color, plateNumber}}) => (
+                        <div className="modal-padded-box request-popup" key={key}  >
+                            
+                            <div className='title'>{firstname} {lastname}</div>
+                            
+                            <div className='details'>{color} {brand} {make} {model} Model</div>
+                           
+                            <div className="flex g-2 contact-details">
+                                <div className='contact-detail'>{email}</div>
+                                <div className='contact-detail'>{phone}</div>
+                            </div>
 
-                            <div>
-                                <span><button onClick={(e) => {acceptRequest(jobId)}}>Accept</button></span>
-                                <span><button onClick={(e) => {rejectRequest(jobId)}}>Reject</button></span>
+                            <div className="flex g-2 form-button-box">
+                                <button className='reject-request-button cta' onClick={(e) => {rejectRequest(jobId, id)}}>Reject</button>
+                                <button className='accept-button cta' onClick={(e) => {acceptRequest(jobId, id)}}>Accept</button>
                             </div>
                         </div>
                     ))

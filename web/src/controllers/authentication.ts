@@ -3,7 +3,7 @@ import { LoginCredentials, RegistrationCredentials } from "interfaces/authentica
 import { LoginFailedFunction, LoginSuccessFunction, RegisterFailedFunction, RegisterSuccessFunction } from "types/authentication";
 import { loginuser, registerclient, registermechanic } from 'urls';
 
-export const login = (credentials: LoginCredentials, onSuccess: LoginSuccessFunction, onFailed: LoginFailedFunction) => {
+export const login = (credentials: LoginCredentials, onSuccess: LoginSuccessFunction, onFailed: LoginFailedFunction, onWrongLogins?: () => void) => {
   
     const onSuccessful = (response:any) => {
         const {firstname, lastname, email, jwt:token, id:userId, phone, role} = response.data;
@@ -13,7 +13,10 @@ export const login = (credentials: LoginCredentials, onSuccess: LoginSuccessFunc
     }
 
     const onError = (error:any) => {
-        console.log(error)
+        
+        if(error?.response?.status === 401){
+            onWrongLogins?.()
+        }
     }
 
     const onTimeout = () => {

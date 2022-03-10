@@ -12,13 +12,6 @@ const Vehicles = (props: Props) => {
   const [loading, updateLoadingStatus] = useState<boolean>(true);
   const navigate = useNavigate();
 
-  const containerStyle = {
-    display: "flex",
-    gap: "10px",
-    flexWrap: "wrap",
-    
-  }
-
   const getVehicles = useCallback(() => {
     updateLoadingStatus(true)
     const onSuccess = (vehicles: VehicleDetails[]) => {
@@ -36,7 +29,7 @@ const Vehicles = (props: Props) => {
 
   const addJob = (vehicleId: string) => {
       const onSuccess = (jobId:string) => {
-          navigate("/")
+          navigate("/send-request")
       }
       const onFailed = () => {}
       createJob(vehicleId, onSuccess, onFailed);
@@ -48,13 +41,44 @@ const Vehicles = (props: Props) => {
 
   return (
     loading ? 
-    (<div>Loading... Please wait...</div>)
+    (<div className="main-pd">Loading... Please wait...</div>)
     :
     //@ts-ignore
-    (<div style={containerStyle}>
-      {
+    (<div className='blurred-modal'>
+      <div className="header">
+        <div className="close-button" onClick={(e) => {navigate(-1)}}>
+              X
+            </div>
+      </div>
+
+      <div className="modal-padded-box vehicle-popup">
+          <div className="title">
+              Select Vehicle
+
+              <div className="cta-button" onClick={(e) => {navigate("/add-vehicle")}}>
+                + New
+                </div>
+          </div>
+
+          {
+            vehicles.length > 0?
         vehicles.map(vehicle => (<VehicleTile key={vehicle.id} addJob={addJob} {...vehicle} />))
+
+        : 
+
+        <div className="action-box">
+            <span>You do not have any vehicles saved. Add a new vehicle now</span>
+            
+        </div>
+        
+        
       }
+
+          
+
+
+      </div>
+     
     </div>)
   )
 }

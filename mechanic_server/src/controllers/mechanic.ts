@@ -23,6 +23,7 @@ const get_mechanics = async (req:any, res:any) => {
 const register = async (req:any, res:any) => {
 	console.log('register was hit');
 	const {firstname, lastname, email, password, phone} = req.body;
+	console.log(firstname, lastname,email,password,phone)
 
 	const user = await User.create({firstname, lastname, email, password, phone, role: "mechanic"});
 	const { role, id} = user;

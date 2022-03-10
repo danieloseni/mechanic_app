@@ -52,7 +52,7 @@ const Jobs = (props: Props) => {
 
     return (
         <>
-            <h1>Jobs</h1>
+            <div className='title'>Jobs</div>
             <h4>Pending</h4>
             {/*@ts-ignore */}
             <div style={containerStyle}>
@@ -62,7 +62,7 @@ const Jobs = (props: Props) => {
                         ({ assignedMechanic, dateCreated, vehicleId: { brand, make, model, color, plateNumber } }) => //!assignedMechanic &&
                         (
 
-                            <div style={cardStyle} >
+                            <div className="modal-padded-box request-popup" >
                                 <div>Vehicle</div>
                                 <div>
                                     {color} {brand} {make} {model} model - {plateNumber}

@@ -35,7 +35,16 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 const get_jobs = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { tokenDetails: { id }, tokenDetails } = req;
     if (tokenDetails) {
-        const jobs = yield Job.find({ userId: id }).populate("userId").populate("vehicleId").populate("assignedMechanic");
+        const userDetails = User.findOne({ _id: id });
+        console.log(userDetails);
+        let jobs = null;
+        if (userDetails.role === "mechanic") {
+            console.log('its mechanic');
+            jobs = yield Job.find({ assignedMechanic: id }).populate("userId").populate("vehicleId").populate("assignedMechanic");
+        }
+        else {
+            jobs = yield Job.find({ userId: id }).populate("userId").populate("vehicleId").populate("assignedMechanic");
+        }
         res.json(jobs);
     }
     else {

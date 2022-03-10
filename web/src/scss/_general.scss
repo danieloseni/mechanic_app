@@ -1,0 +1,80 @@
+@for $i from 1 through 100{
+    .f-#{$i}{
+        font-size: $i * 1px;
+    }
+
+    .w-#{$i}{
+        font-size: $i * 5px;
+    }
+
+    .h-#{$i}{
+        font-size: $i * 5px;
+    }
+
+    .g-#{$i}{
+        gap: $i * 5px;
+    }
+
+    .gp-#{$i}{
+        gap: $i * 1px;
+    }
+
+    
+    
+}
+
+.pointer{
+    cursor: pointer;
+}
+
+.flex{
+    display: flex !important;
+    
+}
+
+.flex-column{
+    flex-direction: column;
+}
+
+.align-items-center{
+    align-items: center;
+}
+
+.wrap{
+    flex-wrap: wrap;
+}
+
+.full-width{
+    width: 100%;
+}
+.primary-text{
+    color: $primary;
+}
+
+.no-decoration{
+    text-decoration: none;
+}
+
+.space-between{
+    justify-content: space-between !important;
+}
+
+
+.main-pd{
+    padding: 130px;
+
+}
+
+.main-pd2{
+    padding-left: 130px;
+    padding-right: 130px;
+}
+
+.main-mg{
+    margin-top: 130px;
+}
+
+.error-text{
+    color: $primary;
+    
+}

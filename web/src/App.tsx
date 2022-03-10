@@ -13,8 +13,15 @@ import {BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom
 import Requests from 'views/Requests';
 import Home from 'views/Home';
 import Jobs from 'views/Jobs';
-function App({getlivemechanics, user: {role}}:any) {
+import 'scss/style.scss';
+import MechanicRequest from 'modals/MechanicRequest';
+import Navbar from 'layouts/Navbar';
+import SelectiveNavbarRenderer from 'components/selective-renderers/SelectiveNavbarRenderer';
+import Map from 'components/Map/Map'
+import Landing from 'views/Landing';
 
+function App({getlivemechanics, user: {role}}:any) {
+  document.title="Fixit - High quality mechanics at your fingers"
   const AuthOnlyRoute = (Element: any, mustHaveRole:string | null=null) => {
     if(localStorage.getItem("loggedin") !== "true" || (mustHaveRole !== null && mustHaveRole !== role)){
       return (<Navigate to = "/login" replace={true} />)
@@ -40,7 +47,10 @@ function App({getlivemechanics, user: {role}}:any) {
   return (
     <Router >
         {/* <Login /> */}
+        <SelectiveNavbarRenderer />
+        <MechanicRequest />
         <Routes>
+
             <Route path="/login" element={UnAuthOnlyRoute(<Login />)} />
             <Route path="/mechanics/register" element={UnAuthOnlyRoute(<MechanicRegister />)} />
             <Route path="/register" element={UnAuthOnlyRoute(<ClientRegister />)} />
@@ -49,7 +59,15 @@ function App({getlivemechanics, user: {role}}:any) {
             <Route path="/add-vehicle" element={AuthOnlyRoute(<AddCar />, "client")} />
             <Route path="/jobs" element={AuthOnlyRoute(<Jobs />)} />
             <Route path="/requests" element={AuthOnlyRoute(<Requests />, "mechanic")} />
-            <Route path="/" element={AuthOnlyRoute(<Home />)} />
+            <Route path="/" element={<Landing />} />
+            <Route path="/send-request" element={AuthOnlyRoute(<Map
+                    googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyB9CQiAzHM_ISxw6g2rLRn5hbSVpKih9a8&v=3.exp&libraries=geometry,drawing,places"
+                    loadingElement={<div style={{ height: `100%` }} />}
+                    containerElement={<div style={{ height: `100vh` }} />}
+                    mapElement={<div style={{ height: `100%` }} />}
+
+                />, "client")} />
+            <Route path="/dashboard/*" element={AuthOnlyRoute(<Home />)} />
         </Routes>
       
 
