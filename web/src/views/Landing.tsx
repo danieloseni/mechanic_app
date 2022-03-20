@@ -26,10 +26,11 @@ const Landing = (props: Props) => {
             Avoid costly repairs with preventive maintenance. Eliminate all inconvienience and frustration in a bid to locate a mechanic. Our certified technicians will handle your automoblie.
           </div>
 
-          <div className="cta">Get Started</div>
+          <a href='/dashboard' className="cta">Get Started</a>
         </div>
 
         <div className="hero-section">
+
           <div className="artwork">
             <img src={CarMaintenance} alt="" />
           </div>
