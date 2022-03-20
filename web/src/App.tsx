@@ -15,10 +15,13 @@ import Home from 'views/Home';
 import Jobs from 'views/Jobs';
 import 'scss/style.scss';
 import MechanicRequest from 'modals/MechanicRequest';
-import Navbar from 'layouts/Navbar';
 import SelectiveNavbarRenderer from 'components/selective-renderers/SelectiveNavbarRenderer';
 import Map from 'components/Map/Map'
 import Landing from 'views/Landing';
+import { FAQ } from 'views/FAQ';
+import { Terms } from 'views/Terms';
+import { PrivacyPolicy } from 'views/PrivacyPolicy';
+import MaintenanceContainer from 'modals/maintenance/MaintenanceContainer';
 
 function App({getlivemechanics, user: {role}}:any) {
   document.title="Fixit - High quality mechanics at your fingers"
@@ -49,6 +52,7 @@ function App({getlivemechanics, user: {role}}:any) {
         {/* <Login /> */}
         <SelectiveNavbarRenderer />
         <MechanicRequest />
+        <MaintenanceContainer />
         <Routes>
 
             <Route path="/login" element={UnAuthOnlyRoute(<Login />)} />
@@ -60,6 +64,11 @@ function App({getlivemechanics, user: {role}}:any) {
             <Route path="/jobs" element={AuthOnlyRoute(<Jobs />)} />
             <Route path="/requests" element={AuthOnlyRoute(<Requests />, "mechanic")} />
             <Route path="/" element={<Landing />} />
+            <Route path="/about" element={<Landing />} />
+            <Route path="/services" element={<Landing />} />
+            <Route path="/faq" element={<FAQ />} />
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/send-request" element={AuthOnlyRoute(<Map
                     googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyB9CQiAzHM_ISxw6g2rLRn5hbSVpKih9a8&v=3.exp&libraries=geometry,drawing,places"
                     loadingElement={<div style={{ height: `100%` }} />}

@@ -11,8 +11,12 @@ $grey-5:#B3B3B3;
 $grey-6:#7C7C7C;
 $grey-7:#6A6A6A;
 
+$home-sections-margin: 90px;
 
-$home-sections-margin: 150px;
+@media(min-width: 700px) {
+    $home-sections-margin: 150px;
+
+}
 
 
 $standard-box-padding: 30px;

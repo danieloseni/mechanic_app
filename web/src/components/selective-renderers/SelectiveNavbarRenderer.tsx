@@ -18,6 +18,12 @@ const SelectiveNavbarRenderer = (props: Props) => {
             let like = [...addSlashesToRoute('login'),
             ...addSlashesToRoute('mechanics/register'),
             ...addSlashesToRoute('register'),
+            ...addSlashesToRoute('faq'),
+            ...addSlashesToRoute('about'),
+            ...addSlashesToRoute('services'),
+            ...addSlashesToRoute('services'),
+            ...addSlashesToRoute('terms'),
+            ...addSlashesToRoute('privacy-policy'),
         ]
             let contains = false
             like.forEach(urlString => {

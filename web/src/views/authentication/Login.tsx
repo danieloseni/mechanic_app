@@ -57,18 +57,18 @@ const Login = ({ login, user }: Props): ReactElement => {
                     Sign into your account
                 </div>
 
-                <form onSubmit={onSubmit}>
+                <form onSubmit={onSubmit} data-testid="login-form">
                     <div className="fe-group">
 
                         <div className="fe-element">
-                            <label>Email</label>
-                            <input type="text" name="email" value={email} onChange={onChange} />
+                            <label htmlFor="email">Email</label>
+                            <input type="text" id="email" data-testid="email-textbox" name="email" value={email} onChange={onChange} />
                         </div>
 
 
                         <div className="fe-element">
-                            <label>Password</label>
-                            <input type="password" name="password" value={password} onChange={onChange} />
+                            <label htmlFor='password'>Password</label>
+                            <input type="password" id="password" name="password" data-testid="password-textbox" value={password} onChange={onChange} />
                         </div>
 
                         {error && error?.trim?.() !== "" &&<div className="error-text">

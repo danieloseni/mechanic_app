@@ -1,80 +1,99 @@
-@for $i from 1 through 100{
-    .f-#{$i}{
+@for $i from 1 through 100 {
+    .f-#{$i} {
         font-size: $i * 1px;
     }
 
-    .w-#{$i}{
+    .w-#{$i} {
         font-size: $i * 5px;
     }
 
-    .h-#{$i}{
+    .h-#{$i} {
         font-size: $i * 5px;
     }
 
-    .g-#{$i}{
+    .g-#{$i} {
         gap: $i * 5px;
     }
 
-    .gp-#{$i}{
+    .gp-#{$i} {
         gap: $i * 1px;
     }
 
-    
-    
+
+
 }
 
-.pointer{
+.pointer {
     cursor: pointer;
 }
 
-.flex{
+.flex {
     display: flex !important;
-    
+
 }
 
-.flex-column{
+.flex-column {
     flex-direction: column;
 }
 
-.align-items-center{
+.align-items-center {
     align-items: center;
 }
 
-.wrap{
+.wrap {
     flex-wrap: wrap;
 }
 
-.full-width{
+.full-width {
     width: 100%;
 }
-.primary-text{
+
+.primary-text {
     color: $primary;
 }
 
-.no-decoration{
+.no-decoration {
     text-decoration: none;
 }
 
-.space-between{
+.space-between {
     justify-content: space-between !important;
 }
 
 
-.main-pd{
+.main-pd {
+    padding: 130px 20px;
+
+
+}
+
+
+.main-pd2 {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.main-mg {
+    margin-top: 30px;
+}
+
+@media (min-width: 700px) {
+.main-pd {
     padding: 130px;
 
 }
 
-.main-pd2{
-    padding-left: 130px;
-    padding-right: 130px;
+    .main-pd2 {
+        padding-left: 130px;
+        padding-right: 130px;
+    }
+
+    .main-mg {
+        margin-top: 130px;
+    }
 }
 
-.main-mg{
-    margin-top: 130px;
-}
 
-.error-text{
+.error-text {
     color: $primary;
-    
+
 }

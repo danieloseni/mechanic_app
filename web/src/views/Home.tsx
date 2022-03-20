@@ -1,7 +1,7 @@
 import { UserInfo } from 'interfaces/authentication'
 import React from 'react'
 import { connect } from 'react-redux'
-import { Link, Route, Routes } from 'react-router-dom'
+import {  NavLink, Route, Routes } from 'react-router-dom'
 import Jobs from './Jobs'
 import Requests from './Requests'
 
@@ -21,10 +21,10 @@ const Home = ({ user: { role } }: Props) => {
                     {role === "mechanic" &&
                         <>
                             <div className="item">
-                                <Link to="/">Requests</Link>
+                                <NavLink end to="/dashboard"  >Requests</NavLink>
                             </div>
                             <div className="item">
-                                <Link to="/history">History</Link>
+                                <NavLink to="/dashboard/history">History</NavLink>
                             </div>
                         </>
                     }

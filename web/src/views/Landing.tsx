@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import CarMaintenance from 'images/car-maintenance.png';
 import Tools from 'svg/tools.svg';
 import Handshake from 'svg/handshake.svg';
@@ -7,34 +7,14 @@ import TowTruck from 'svg/towtruck.svg';
 import CarFix from 'images/carfix.png';
 import Think from 'images/think.png';
 import ContactBg from 'images/contact-bg.png';
+import LandingNavbar from 'layouts/LandingNavbar';
 interface Props { }
 
 const Landing = (props: Props) => {
   return (
     <div className="main montserrat">
 
-      <div className="landing-header main-pd2">
-        <div className="logo">
-          Fixit
-        </div>
-
-        <ul className="nav-links">
-          <li>
-            <NavLink to="/" >Home</NavLink>
-          </li>
-          <li>
-            <NavLink to="/about">About us</NavLink>
-          </li>
-          <li>
-            <NavLink to="/faq">FAQs</NavLink>
-          </li>
-          <li>
-            <NavLink to="/services">Services</NavLink>
-          </li>
-        </ul>
-
-        <a href='/dashboard' className="cta">Get Started</a>
-      </div>
+      <LandingNavbar />
 
       <div className="hero main-pd2 main-mg">
         <div className="hero-section">
@@ -57,7 +37,10 @@ const Landing = (props: Props) => {
       </div>
 
       <div className="service-cards main-pd2">
-        <div className="service-card">
+        <div className="service-card pointer" onClick = {e => {
+          //@ts-ignore
+          window.showMaintenanceModal()
+          }}>
           <div className="icon"><object data={Tools} aria-label="tools" /></div>
 
           <div className="title">
@@ -123,7 +106,7 @@ const Landing = (props: Props) => {
             <p>Our Frequently Asked Question (FAQs) module has both questions and answers to some of the elementary problems a vehicle can run into. This will help you a customer to troubleshoot your car yourself and completely avoid that trip to the mechanic you really didn’t want to make. </p>
 
             <p>
-              <div className="cta">Go to FAQs <i className="fal fa-arrow-right"></i></div>
+              <Link to="/faq" className="cta">Go to FAQs <i className="fal fa-arrow-right"></i></Link>
             </p>
 
 
@@ -165,8 +148,8 @@ const Landing = (props: Props) => {
 
           <div className='flex align-items-center'>
             <ul className="nav-links">
-              <li>Privacy Policy</li>
-              <li>Terms</li>
+              <li><Link to="/privacy-policy">Privacy Policy</Link></li>
+              <li><Link to="/terms">Terms</Link></li>
             </ul>
 
             <div className="socials">

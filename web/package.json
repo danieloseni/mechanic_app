@@ -31,7 +31,6 @@
   "scripts": {
     "start": "react-scripts start",
     "test": "react-scripts test",
-  
     "eject": "react-scripts eject",
     "publishToHeroku": "cd ../ &&  git subtree push --prefix web heroku master || true"
   },
@@ -54,9 +53,10 @@
     ]
   },
   "devDependencies": {
-    "@types/redux-persist": "^4.3.1"
+    "@types/redux-persist": "^4.3.1",
+    "react-test-renderer": "^17.0.2"
   },
-  "engines": { 
+  "engines": {
     "node": "16.13.1",
     "npm": "8.5.1"
   }
