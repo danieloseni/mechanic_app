@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 // import { Map as MapView, GoogleApiWrapper, Marker } from 'google-maps-react';
-import { GoogleMap, InfoWindow, Marker, withGoogleMap, withScriptjs } from "react-google-maps"
+import { GoogleMap, Marker, withGoogleMap, withScriptjs } from "react-google-maps"
 import { connect } from 'react-redux'
 import { sendRequest as SendRequestController } from 'controllers/mechanic-controller';
 

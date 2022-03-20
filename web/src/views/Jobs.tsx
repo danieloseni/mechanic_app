@@ -2,7 +2,6 @@ import { Job } from 'interfaces/job';
 import React, { useState, useEffect, useCallback } from 'react'
 import { getJobs as GetJobsController } from 'controllers/job-controller';
 //@ts-ignore
-import {cloneDeep} from 'lodash'
 type Props = {}
 
 const Jobs = (props: Props) => {

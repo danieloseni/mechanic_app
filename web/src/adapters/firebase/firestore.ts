@@ -2,7 +2,7 @@ import app from './app';
 import { getDatabase, ref, set, onValue } from 'firebase/database';
 import { store } from 'redux/store';
 
-const ap = app;
+export const ap = app;
 const database = getDatabase();
 
 
