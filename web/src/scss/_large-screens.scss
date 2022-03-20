@@ -150,6 +150,7 @@
             // box-shadow: 1px -3px 6px 1px #e1e1e1;
             position: absolute;
             top: -5px;
+            right: unset;
         }
     }
 
@@ -398,6 +399,7 @@
             font-size: 20px;
             font-weight: bold;
             color: $grey-1;
+            display: block;
         }
     }
 
@@ -473,6 +475,7 @@
 
     .tabbed-view {
         display: flex;
+        flex-direction: row;
         gap: 30px;
 
         .tab-menu {
@@ -480,13 +483,14 @@
             background: $tertiary;
             flex: 0 0 auto;
             height: fit-content;
-
+            flex-direction: column;
             .item {
                 height: 50px;
                 font-size: 15px;
                 font-weight: 300;
                 padding: 15px;
                 cursor: pointer;
+                padding: unset;
 
                 a {
                     text-decoration: none;
@@ -494,10 +498,15 @@
                     height: 100%;
 
                 }
+
+                a.active{
+                    border: none;
+                }
             }
         }
 
         .view {
+            overflow: unset;
             .title {
                 font-size: 30px;
                 margin-bottom: 20px;
