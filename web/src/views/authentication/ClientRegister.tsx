@@ -97,7 +97,7 @@ const ClientRegister = ({ register, user }: Props) => {
 
                         <div className="form-button-box">
 
-                            <button className="cta">{loading ? "Hold in ..." : "Create account"}</button>
+                            <button className="cta">{loading ? "Hold on ..." : "Create account"}</button>
                         </div>
                     </div>
 

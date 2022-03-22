@@ -698,6 +698,7 @@ nav {
         .description {
             font-weight: 500;
             font-size: 13px;
+            color: $grey-6;
         }
     }
 }
@@ -727,6 +728,7 @@ nav {
             flex: 0 0 50%;
             font-size: 15px;
             font-weight: 400;
+            color: $grey-6;
 
             .artwork {
                 // width:  464.87px;
@@ -745,7 +747,7 @@ nav {
                 display: flex;
                 align-items: center;
                 gap: 10px;
-
+                color: white;
                 text-decoration: none;
 
             }

@@ -1,5 +1,7 @@
 import LandingNavbar from 'layouts/LandingNavbar'
-import React from 'react'
+import React from 'react';
+import CheckEngine from 'images/check-engine.jpg';
+import FuelSymbol from 'images/fuel-symbol.jpg';
 
 interface Props {
 
@@ -18,7 +20,7 @@ export const FAQ = (props: Props) => {
             <div className="faq-box main-pd2">
                 <div className="faq-group">
                     <div className="question">
-                        What does this symbol mean?
+                        What does this symbol mean? <img src={FuelSymbol} alt="" />
                     </div>
 
                     <div className="answer">
@@ -28,7 +30,7 @@ export const FAQ = (props: Props) => {
 
                 <div className="faq-group">
                     <div className="question">
-                        What does this symbol mean?
+                        What does this symbol mean? <img src={CheckEngine} alt="" />
                     </div>
 
                     <div className="answer">

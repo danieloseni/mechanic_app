@@ -24,7 +24,7 @@ export default class AxiosClient{
             //config.headers!['Content-Type'] = "application/json"
     
             // config.baseURL = process.env.PROXY || "http://localhost:5000"
-            config.baseURL = process.env.PROXY || "http://localhost:5000"
+            config.baseURL = process.env.NEXT_PUBLIC_PROXY || "http://localhost:5000"
             //TODO: Implement what to happen before request is sent
             return config;
         },
