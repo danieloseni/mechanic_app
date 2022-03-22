@@ -26,7 +26,7 @@ export default class AxiosClient{
             // config.baseURL = process.env.PROXY || "http://localhost:5000"
             console.log(process.env)
 
-            config.baseURL = process.env.NEXT_PUBLIC_PROXY || "http://localhost:5000"
+            config.baseURL = process.env.REACT_APP_PROXY || "http://localhost:5000"
             //TODO: Implement what to happen before request is sent
             return config;
         },
