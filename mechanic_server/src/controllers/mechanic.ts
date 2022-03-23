@@ -76,9 +76,37 @@ const accept_request = async(req:any, res:any) => {
 	}
 }
 
+const mark_met = async(req:any, res:any) => {
+	const {jobId} = req.body;
+
+	const {tokenDetails: {id}, tokenDetails} = req;
+
+	if(tokenDetails){
+		await Jobs.findOneAndUpdate({_id: jobId, assignedMechanic: id}, {met: true});
+		res.json({message: "done"})
+	}else{
+		res.status(401).json({message: "Unauthorized"})
+	}
+}
+
+const mark_done = async(req:any, res:any) => {
+	const {jobId} = req.body;
+
+	const {tokenDetails: {id}, tokenDetails} = req;
+
+	if(tokenDetails){
+		await Jobs.findOneAndUpdate({_id: jobId, assignedMechanic: id}, {done: true});
+		res.json({message: "done"})
+	}else{
+		res.status(401).json({message: "Unauthorized"})
+	}
+}
+
 module.exports = {
 	register,
 	get_mechanics,
 	reject_request,
-	accept_request
+	accept_request,
+	mark_met,
+	mark_done
 }

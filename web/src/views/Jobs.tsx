@@ -1,11 +1,21 @@
 import { Job } from 'interfaces/job';
 import React, { useState, useEffect, useCallback } from 'react'
-import { getJobs as GetJobsController } from 'controllers/job-controller';
+import { getJobs as GetJobsController, markMet as MarkMetController, markDone as MarkDoneController } from 'controllers/job-controller';
+import JobCard from 'components/job-card/JobCard';
+import { connect } from 'react-redux';
+import { UserInfo } from 'interfaces/authentication';
 //@ts-ignore
-type Props = {}
+import { cloneDeep } from 'lodash';
+//@ts-ignore
+interface Props {
+    user?: UserInfo
+}
 
-const Jobs = (props: Props) => {
-    const [jobs, updateJobs] = useState<Job[]>([]);
+interface CustomJob extends Job {
+    loading?: boolean
+}
+const Jobs = ({ user }: Props) => {
+    const [jobs, updateJobs] = useState<CustomJob[]>([]);
 
     const getJobs = useCallback(() => {
 
@@ -14,7 +24,7 @@ const Jobs = (props: Props) => {
             //     return job;
             // })
 
-           updateJobs(jobsList)
+            updateJobs(jobsList)
             //updateJobs(cloneDeep(jobsList));
         }
 
@@ -26,12 +36,86 @@ const Jobs = (props: Props) => {
 
     }, [])
 
-    const cardStyle = {
-        border: "1px solid #e1e1e1",
-        width: "200px",
-        padding: "10px 35px",
-        flex: "1 1 auto",
-        cursor: "pointer"
+    const onMarkDone = (jobId: string) => {
+
+        updateJobs(jobs => cloneDeep(
+            jobs.map(job => {
+                if (job._id === jobId) {
+                    job.loading = true
+                }
+                return job
+            })
+        ))
+
+        const onSuccess = () => {
+            updateJobs(jobs => cloneDeep(
+                jobs.map(job => {
+                    if (job._id === jobId) {
+                        job = {
+                            ...job,
+                            loading: false,
+                            done: true
+                        }
+                    }
+                    return job
+                })
+            ))
+        }
+
+        const onFailed = () => {
+            updateJobs(jobs => cloneDeep(
+                jobs.map(job => {
+                    if (job._id === jobId) {
+                        job = {
+                            ...job,
+                            loading: false,
+                        }
+                    }
+                    return job
+                })
+            ))
+        }
+
+        MarkDoneController(jobId, onSuccess, onFailed);
+    }
+    const onMarkMet = (jobId: string) => {
+        updateJobs(cloneDeep(
+            jobs.map(job => {
+                if (job._id === jobId) {
+                    job.loading = true
+                }
+                return job
+            })
+        ))
+        const onSuccess = () => {
+            updateJobs(cloneDeep(
+                jobs.map(job => {
+                    if (job._id === jobId) {
+                        job = {
+                            ...job,
+                            loading: false,
+                            done: true
+                        }
+                    }
+                    return job
+                })
+            ))
+        }
+        const onFailed = () => {
+            updateJobs(cloneDeep(
+                jobs.map(job => {
+                    if (job._id === jobId) {
+                        job = {
+                            ...job,
+                            loading: false,
+                        }
+                    }
+                    return job
+                })
+            ))
+        }
+
+        MarkMetController(jobId, onSuccess, onFailed);
     }
 
 
@@ -46,71 +130,27 @@ const Jobs = (props: Props) => {
         getJobs();
     }, [getJobs])
 
-    console.log(jobs[0])
-    
+
 
     return (
         <>
             <div className='title'>Jobs</div>
-            <h4>Pending</h4>
-            {/*@ts-ignore */}
+            {/*@ts-ignore*/}
             <div style={containerStyle}>
-            
                 {
-                    jobs.map(
-                        ({ assignedMechanic, dateCreated, vehicleId: { brand, make, model, color, plateNumber } }) => //!assignedMechanic &&
-                        (
+                    jobs.map(({ assignedMechanic: { firstname, lastname, email, phone } = {}, assignedMechanic, dateAssigned, dateCreated, vehicleId: { brand, make, model, plateNumber, color }, userId: { firstname: customerFirstname, lastname: customerLastname, email: customerEmail, phone: customerPhone }, done, met, _id:id }) => (
 
-                            <div className="modal-padded-box request-popup" >
-                                <div>Vehicle</div>
-                                <div>
-                                    {color} {brand} {make} {model} model - {plateNumber}
-                                </div>
+                        <JobCard key={id} {...{ color, brand, make, model, firstname, lastname, email, phone, role: user!?.role, mechanicAssigned: (() => assignedMechanic && true)(), plateNumber, dateCreated, dateAssigned, customerFirstname, customerLastname, customerEmail, customerPhone, done, met, id, onMarkDone, onMarkMet }} />
 
-                                <div>{new Date(dateCreated).getDate()}/{new Date(dateCreated).getMonth() + 1}/{new Date(dateCreated).getFullYear()}</div>
-                            </div>
-                        )
-
-
-                    )
+                    ))
                 }
             </div>
 
-            <h4>Assigned</h4>
-            {
-                jobs.map(({ assignedMechanic: mechanic, dateCreated, vehicleId: { brand, make, model, color, plateNumber } }) => //mechanic &&
-                    (
-
-                        <div style={cardStyle} >
-                            <div>Vehicle</div>
-                            <div>
-                                {color} {brand} {make} {model} model - {plateNumber}
-                            </div>
-                            <br />
-                            <div>Mechanic</div>
-                            {(() => {
-                                const {firstname, lastname, email, phone} = mechanic
-                                return (
-                                    <>
-                                        <div>{firstname} {lastname}</div>
-                                        <div>{phone}</div>
-                                        <div>{email}</div>
-                                        
-                                    </>)
-                            })}
-
-
-
-
-                            <div>{new Date(dateCreated).getDate()}/{new Date(dateCreated).getMonth() + 1}/{new Date(dateCreated).getFullYear()}</div>
-                        </div>
-                    )
-
-                )
-
-            }
         </>
     )
 }
 
-export default Jobs
+const mapStateToProps = (state: any) => ({
+    user: state.user
+})
+export default connect(mapStateToProps, null)(Jobs)

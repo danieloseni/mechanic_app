@@ -15,7 +15,6 @@ export default class AxiosClient{
     }
 
     setUp(){
-        console.log(this.url)
         this.axiosInstance.interceptors.request.use(config => {
             if(this.authenticatedRequest){
                 config.headers!.Authorization = "Bearer " + store.getState().user.token
@@ -24,7 +23,6 @@ export default class AxiosClient{
             //config.headers!['Content-Type'] = "application/json"
     
             // config.baseURL = process.env.PROXY || "http://localhost:5000"
-            console.log(process.env)
 
             config.baseURL = process.env.REACT_APP_PROXY || "http://localhost:5000"
             //TODO: Implement what to happen before request is sent
@@ -161,7 +159,6 @@ export default class AxiosClient{
 
     head = () => {
         if(!this.url){
-            console.log("emptyty")
         }
         this.setUp();
         

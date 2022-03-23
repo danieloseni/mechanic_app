@@ -28,7 +28,6 @@ export const login = (credentials: LoginCredentials, onSuccess: LoginSuccessFunc
 export const register = (credentials: RegistrationCredentials,role: "mechanic" | "client", onSuccess: RegisterSuccessFunction, onFailed: RegisterFailedFunction) => {
    
     const onSuccessful = (response:any) => {
-        console.log(response)
         const {firstname, lastname, email, jwt:token, id:userId, phone, role} = response.data;
         onSuccess({
             firstname, lastname, email, phone, token, userId, role
@@ -36,7 +35,6 @@ export const register = (credentials: RegistrationCredentials,role: "mechanic" |
     }
 
     const onError = (error:any) => {
-        console.log(error)
     }
 
     const onTimeout = () => {

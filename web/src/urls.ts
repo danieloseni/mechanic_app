@@ -10,3 +10,5 @@ export const rejectrequest = `${mechanicUrlPrefix}/reject-request`;
 export const acceptrequest = `${mechanicUrlPrefix}/accept-request`;
 export const createjob = `${clientUrlPrefix}/job`;
 export const getjobs = `/jobs`;
+export const markmet = `${mechanicUrlPrefix}/mark-met`;
+export const markdone = `${mechanicUrlPrefix}/mark-done`;

@@ -17,6 +17,8 @@ const Login = ({ login, user }: Props): ReactElement => {
     const [loading, updateLoadingStatus] = useState<boolean>(false);
     const [error, updateError] = useState<string>("");
 
+    const [showPopup, updatePopupVisibility] = useState<boolean>(false);
+
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         switch (e.target.name) {
             case "email":
@@ -80,15 +82,16 @@ const Login = ({ login, user }: Props): ReactElement => {
 
                     <div className="alternate-action-box">
                         Don't have an account? 
-                        <div className="alternate-options-popup">
+                         <div className={"alternate-options-popup " + (!showPopup && "hide")}>
                                <div className="option">
-                                    <Link to="/register">Create a regular account</Link>
+                                    <Link to="/register">Create a customer account</Link>
                                 </div>
                                <div className="option">
                                     <Link to="/mechanics/register">Create a mechanic account</Link>
                                 </div>
                             </div>
-                        <span className="primary-text pointer">Create one
+
+                        <span className="primary-text pointer" tabIndex={0} onFocus = {e => {updatePopupVisibility(true)}} onBlur = {e => {updatePopupVisibility(false)}}>Create one
                         </span>
                         
                     </div>

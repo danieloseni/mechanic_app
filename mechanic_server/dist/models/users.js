@@ -36,7 +36,6 @@ const UserSchema = new Schema({
 });
 UserSchema.pre('save', function (next) {
     return __awaiter(this, void 0, void 0, function* () {
-        console.log("User about to be creaated  and saved", this);
         const salt = yield bcrypt.genSalt();
         this.password = yield bcrypt.hash(this.password, salt);
         next();

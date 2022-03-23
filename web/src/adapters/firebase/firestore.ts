@@ -10,18 +10,6 @@ export const updateMechanicLocation = (data: { latitude: number, longitude: numb
     const { latitude, longitude } = data
     const { user: { userId: id, firstname, lastname, email, phone } } = store.getState();
 
-    console.log("sending: ", {
-        firstname,
-        lastname,
-        email,
-        phone,
-        id,
-        latitude,
-        longitude,
-        date: new Date().toUTCString()
-
-    })
-
     set(ref(database, 'mechanics/' + store.getState().user.userId), {
         firstname,
         lastname,

@@ -26,7 +26,6 @@ export const sendRequest = (mechanicId: string, onSuccess: SendRequestSuccessFun
     } 
 
     const onError = (error:any) => {
-        console.log(error)
     }
     const onTimeout = () => {
 
@@ -45,7 +44,6 @@ export const rejectRequest = (jobId: string, onSuccess: RejectRequestSuccessFunc
     } 
 
     const onError = (error:any) => {
-        console.log(error)
     }
     const onTimeout = () => {
 
@@ -62,7 +60,6 @@ export const acceptRequest = (jobId: string, onSuccess: RejectRequestSuccessFunc
     } 
 
     const onError = (error:any) => {
-        console.log(error)
     }
     const onTimeout = () => {
 

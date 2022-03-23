@@ -13,12 +13,10 @@ interface Props {
 }
 
 const Map = ({ mechanics }: Props) => {
-    console.log(mechanics)
     const [currentLocation, updateCurrentLocation] = useState<{ lat: number, lng: number }>({ lat: 47.444, lng: -122.176 });
     const sendRequest = (mechanicId: string) => {
 
         const onSuccess = () => {
-            console.log('success')
         }
         const onFailed = () => { }
         SendRequestController(mechanicId, onSuccess, onFailed);

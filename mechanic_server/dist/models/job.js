@@ -6,6 +6,8 @@ const JobSchema = new Schema({
     vehicleId: { type: Schema.Types.ObjectId, ref: "vehicle" },
     assignedMechanic: { type: Schema.Types.ObjectId, ref: "user" },
     dateCreated: Date,
-    dateAssigned: Date
+    dateAssigned: Date,
+    met: Boolean,
+    done: Boolean
 });
 module.exports = model('job', JobSchema);

@@ -63,9 +63,33 @@ const accept_request = (req, res) => __awaiter(void 0, void 0, void 0, function*
         res.status(401).json({ message: "Unauthorized" });
     }
 });
+const mark_met = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { jobId } = req.body;
+    const { tokenDetails: { id }, tokenDetails } = req;
+    if (tokenDetails) {
+        yield Jobs.findOneAndUpdate({ _id: jobId, assignedMechanic: id }, { met: true });
+        res.json({ message: "done" });
+    }
+    else {
+        res.status(401).json({ message: "Unauthorized" });
+    }
+});
+const mark_done = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { jobId } = req.body;
+    const { tokenDetails: { id }, tokenDetails } = req;
+    if (tokenDetails) {
+        yield Jobs.findOneAndUpdate({ _id: jobId, assignedMechanic: id }, { done: true });
+        res.json({ message: "done" });
+    }
+    else {
+        res.status(401).json({ message: "Unauthorized" });
+    }
+});
 module.exports = {
     register,
     get_mechanics,
     reject_request,
-    accept_request
+    accept_request,
+    mark_met,
+    mark_done
 };

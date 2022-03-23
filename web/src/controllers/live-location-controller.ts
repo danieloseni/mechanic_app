@@ -10,7 +10,6 @@ export default class LiveLocation{
         if(role !== "mechanic") return
         
         this.liveLocationStreamId = navigator.geolocation.watchPosition((data) => {
-            console.log("location updated")
             this.updateLocation({latitude: data.coords.latitude, longitude: data.coords.longitude})
         })
     }

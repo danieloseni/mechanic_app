@@ -2,6 +2,7 @@ export {}
 const User = require('../models/users');
 const jwt = require('jsonwebtoken');
 const Job = require('../models/job');
+const mongoose = require('mongoose');
 
 const maxAge = 7 * 24 * 60 * 60; //1 week
 
@@ -32,8 +33,7 @@ const get_jobs = async (req:any, res:any) => {
 	const {tokenDetails: {id}, tokenDetails} = req;
 
 	if(tokenDetails){
-		const userDetails = User.findOne({_id: id});
-		console.log(userDetails)
+		const userDetails = await User.findById(id);
 		let jobs:any = null
 		if(userDetails.role === "mechanic"){
 			console.log('its mechanic')

@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const User = require('../models/users');
 const jwt = require('jsonwebtoken');
 const Job = require('../models/job');
+const mongoose = require('mongoose');
 const maxAge = 7 * 24 * 60 * 60; //1 week
 const createToken = (id) => {
     return jwt.sign({ id }, 'A good man never hits a woman Because true power doesn\'t let little things get to them Only the weak see the needd to fight and hit people in every little situation', {
@@ -35,8 +36,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 const get_jobs = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { tokenDetails: { id }, tokenDetails } = req;
     if (tokenDetails) {
-        const userDetails = User.findOne({ _id: id });
-        console.log(userDetails);
+        const userDetails = yield User.findById(id);
         let jobs = null;
         if (userDetails.role === "mechanic") {
             console.log('its mechanic');
