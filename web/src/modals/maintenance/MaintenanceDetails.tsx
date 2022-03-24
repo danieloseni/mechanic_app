@@ -2,12 +2,12 @@ import React, { useCallback, useEffect, useState } from 'react'
 
 interface Props {
     onButtonClick: () => void,
-    onDetailsUpdated: (details: {service: string, address: {lat: number, lng: number}, date: string}) => void
+    onDetailsUpdated: (details: {service: string, address: string, date: string}) => void
 }
 
 const MaintenanceDetails = ({onDetailsUpdated, onButtonClick}: Props) => {
     const [service, updateService] = useState<string>("");
-    const [address, updateAddress] = useState<{lat: number, lng: number}>({lat: 1, lng: 2});
+    const [address, updateAddress] = useState<string>("");
     const [date, updateDate] = useState<string>("");
 
     const submit = () => {
@@ -15,16 +15,7 @@ const MaintenanceDetails = ({onDetailsUpdated, onButtonClick}: Props) => {
         onButtonClick()
     }
 
-    const getCurrentLocation = useCallback(() => {
-        navigator.geolocation.getCurrentPosition(({coords: {latitude: lat, longitude: lng}}) => {
-            updateAddress({lat, lng})
-        })
-    }, [])
-
-    useEffect(() => {
-        getCurrentLocation()
-    }, [getCurrentLocation])
-
+   
     return (
         <div className="mechanic-section modal-padded-box">
             <div className="title">
@@ -41,7 +32,7 @@ const MaintenanceDetails = ({onDetailsUpdated, onButtonClick}: Props) => {
                 </div>
                 <div className="fe-element">
                     <label htmlFor="address">Address</label>
-                    <input type="text" id="address" disabled placeholder='Your current location' />
+                    <input type="text" id="address"  placeholder='Your address' onChange={e => {updateAddress(e.target.value)}} />
                 </div>
                 <div className="fe-element">
                     <label htmlFor="date">Select Date</label>

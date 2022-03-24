@@ -1075,4 +1075,47 @@ footer {
     }
 }
 
+.alert-popup-container{
+    position: fixed;
+    bottom: -90px;
+    right: 40px;
+    z-index: 999999999;
+    transition: .5s ease-in-out;
+    
+    .alert-popup{
+        
+        display: flex;
+        gap: 10px;
+        padding: 10px 15px;
+        border-radius: 45px;
+        color: white;
+        align-items: center;
+        font-weight: 300;;
+        box-shadow: 1px 1px 8px 1px #e1e1e1;;
+
+        .icon{
+            border: 2px solid white;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;;
+            font-size: 20px;
+        }
+    }
+
+    .alert-popup.success{
+        background: green;
+    }
+
+    .alert-popup.error{
+        background: red;
+    }
+}
+
+.alert-popup-container.show{
+    bottom: 40px
+}
+
 @import 'large-screens'

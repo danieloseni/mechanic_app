@@ -39,8 +39,7 @@ const Landing = (props: Props) => {
 
       <div className="service-cards main-pd2">
         <div className="service-card pointer" onClick = {e => {
-          //@ts-ignore
-          window.showMaintenanceModal()
+         window.location.href="/book-appointment"
           }}>
           <div className="icon"><object data={Tools} aria-label="tools" /></div>
 

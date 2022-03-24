@@ -24,6 +24,7 @@ const SelectiveNavbarRenderer = (props: Props) => {
             ...addSlashesToRoute('services'),
             ...addSlashesToRoute('terms'),
             ...addSlashesToRoute('privacy-policy'),
+            ...addSlashesToRoute('book-appointment'),
         ]
             let contains = false
             like.forEach(urlString => {

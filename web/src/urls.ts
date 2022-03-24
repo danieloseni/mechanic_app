@@ -12,3 +12,7 @@ export const createjob = `${clientUrlPrefix}/job`;
 export const getjobs = `/jobs`;
 export const markmet = `${mechanicUrlPrefix}/mark-met`;
 export const markdone = `${mechanicUrlPrefix}/mark-done`;
+
+export const addappointment = `${clientUrlPrefix}/appointment`;
+export const getappointment = `${mechanicUrlPrefix}/appointment`;
+

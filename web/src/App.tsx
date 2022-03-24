@@ -22,6 +22,7 @@ import { FAQ } from 'views/FAQ';
 import { Terms } from 'views/Terms';
 import { PrivacyPolicy } from 'views/PrivacyPolicy';
 import MaintenanceContainer from 'modals/maintenance/MaintenanceContainer';
+import AlertPopup from 'modals/alert-popup/AlertPopup';
 
 function App({getlivemechanics, user: {role}}:any) {
   document.title="Fixit - High quality mechanics at your fingers"
@@ -46,13 +47,22 @@ function App({getlivemechanics, user: {role}}:any) {
   useEffect(() => {
       LiveLocation.startLocationBroadcast()
       getlivemechanics()
+      //@ts-ignore
+      if(window.executeAfterLogin !== null && localStorage.getItem('loggedin') === "true"){
+        //@ts-ignore
+          window.executeAfterLogin?.()
+          //@ts-ignore
+          window.executeAfterLogin = null
+      }
+
+    
   }, [getlivemechanics])
   return (
     <Router >
         {/* <Login /> */}
         <SelectiveNavbarRenderer />
         <MechanicRequest />
-        <MaintenanceContainer />
+        <AlertPopup />
         <Routes>
 
             <Route path="/login" element={UnAuthOnlyRoute(<Login />)} />
@@ -68,6 +78,7 @@ function App({getlivemechanics, user: {role}}:any) {
             <Route path="/services" element={<Landing />} />
             <Route path="/faq" element={<FAQ />} />
             <Route path="/terms" element={<Terms />} />
+            <Route path="/book-appointment" element={AuthOnlyRoute(<MaintenanceContainer />)} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/send-request" element={AuthOnlyRoute(<Map
                     googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyB9CQiAzHM_ISxw6g2rLRn5hbSVpKih9a8&v=3.exp&libraries=geometry,drawing,places"

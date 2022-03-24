@@ -30,7 +30,7 @@ interface Props {
 
 
 
-const JobCard = ({ firstname, lastname, phone, email, make, model, plateNumber, brand, color, dateCreated, mechanicAssigned, role, customerFirstname, customerLastname, customerEmail, customerPhone, met, done, onMarkDone, onMarkMet, loading, id }: Props) => {
+const AppointmentCard = ({ firstname, lastname, phone, email, make, model, plateNumber, brand, color, dateCreated, mechanicAssigned, role, customerFirstname, customerLastname, customerEmail, customerPhone, met, done, onMarkDone, onMarkMet, loading, id }: Props) => {
 
     const getStatusAndColorClass = () => {
         let status: string = "";
@@ -185,4 +185,4 @@ const JobCard = ({ firstname, lastname, phone, email, make, model, plateNumber, 
 }
 
 
-export default JobCard
+export default AppointmentCard

@@ -2,26 +2,62 @@ import React, { useCallback, useEffect, useState } from 'react'
 import MaintenanceDetails from './MaintenanceDetails';
 import MechanicSelection from './MechanicSelection';
 import { MechanicDetails } from './../../interfaces/mechanic';
+import { addAppointment as AddAppointmentController } from 'controllers/appointment-controller';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
 
 }
 
+interface AppointmentDetails { service: string, address: string, date: string }
+
 enum Progress { DETAILS_ENTERING, MECHANIC_SELECTION }
 
 const MaintenanceContainer = (props: Props) => {
+    const navigate = useNavigate();
     const [progress, updateProgress] = useState<Progress>(Progress.DETAILS_ENTERING)
+    const [details, updateDetails] = useState<AppointmentDetails>();
+    const [mechanicDetails, updateMechanicDetails] = useState<MechanicDetails>();
 
-    const [displayModal, updateModalVisibility] = useState<boolean>(false);
+    const [displayModal, updateModalVisibility] = useState<boolean>(true);
 
     const submit = () => {
         hideModal()
+
+        const appointment = {
+            ...details!,
+            mechanic: mechanicDetails!?.id
+        }
+
+        const onSuccess = () => {
+            //@ts-ignore
+            window.showPopup({
+                status: "success",
+                message: `Appointment placed successfully.`
+                // message: `Appointment placed successfully. ${mechanicDetails?.firstname} ${mechanicDetails?.lastname} will be in touch.`
+            })
+            navigate("/")
+        }
+
+        const onFailed = () => {
+            //@ts-ignore
+            window.showPopup({
+                status: "failed",
+                message: `An error occured`
+            })
+        }
+
+        AddAppointmentController(appointment, onSuccess, onFailed)
+
     }
     const onButtonClick = () => {
         if (progress === Progress.DETAILS_ENTERING) {
             updateProgress(Progress.MECHANIC_SELECTION)
-        }else{
-            submit()
+        } else {
+            setTimeout(() => {
+
+                submit()
+            }, 1000)
         }
     }
 
@@ -46,10 +82,11 @@ const MaintenanceContainer = (props: Props) => {
 
     const onMechanicSelected = (detials: MechanicDetails) => {
 
+        updateMechanicDetails(detials)
     }
 
-    const onDetailsUpdated = (details: { service: string, address: { lat: number, lng: number }, date: string }) => {
-
+    const onDetailsUpdated = (details: AppointmentDetails) => {
+        updateDetails(details)
     }
 
     return displayModal ? (

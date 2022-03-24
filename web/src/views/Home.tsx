@@ -26,6 +26,9 @@ const Home = ({ user: { role } }: Props) => {
                             <div className="item">
                                 <NavLink to="/dashboard/history">History</NavLink>
                             </div>
+                            <div className="item">
+                                <NavLink to="/dashboard/appointments">Appointments</NavLink>
+                            </div>
                         </>
                     }
                 </div>

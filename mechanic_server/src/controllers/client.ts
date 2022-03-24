@@ -1,6 +1,8 @@
 export {}
 const User = require('../models/users');
 const Vehicle = require('../models/vehicle');
+const Appointment = require('../models/appointment');
+
 const getTokenFromHeaders = require('../helpers/getTokenFromHeader');
 const jwt = require('jsonwebtoken');
 const Job = require('../models/job');
@@ -82,7 +84,6 @@ const send_request = async(req:any, res:any) => {
 
 	const {tokenDetails: {id}, tokenDetails} = req;
 	if(tokenDetails || !jobId || !mechanicId){
-		console.log("yes dear")
 		res.json({message: "done"})
 
 		//fetch job details from database
@@ -103,8 +104,21 @@ const send_request = async(req:any, res:any) => {
 	}
 }
 
+const add_appointment = async(req:any, res:any) => {
+
+	const {date, mechanic, service, address} = req.body
+	const {tokenDetails: {id}, tokenDetails} = req;
+
+	if(tokenDetails){
+		const appointment = await Appointment.create({date, mechanic, service, address, user:id});
+		res.json(appointment);
+	}else{
+		res.status(401).json({message: "Unauthorized"})
+	}
+}
+
 
 
 module.exports = {
-	register, add_vehicle, get_vehicles, add_job, send_request
+	register, add_vehicle, get_vehicles, add_job, send_request, add_appointment
 }
