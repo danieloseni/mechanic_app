@@ -1119,4 +1119,16 @@ footer {
     bottom: 40px
 }
 
+.contact__modal{
+    .detail-box{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        .detail{
+            display: flex;
+            gap: 10px
+        }
+    }
+}
+
 @import 'large-screens'

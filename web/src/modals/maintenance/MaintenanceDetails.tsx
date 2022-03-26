@@ -28,6 +28,8 @@ const MaintenanceDetails = ({onDetailsUpdated, onButtonClick}: Props) => {
                     <select name="" id="service" value={service} onChange={e => {updateService(e.target.value)}}>
                         <option value="">Select Service</option>
                         <option value="battery_checking">Battery Checking</option>
+                        <option value="tyre_check_replacement">Tyre check and/or replacement </option>
+                        <option value="engine_checkup">Engine checkup </option>
                     </select>
                 </div>
                 <div className="fe-element">

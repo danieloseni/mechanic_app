@@ -92,7 +92,7 @@ const MaintenanceContainer = (props: Props) => {
     return displayModal ? (
         <div className='blurred-modal'>
             <div className="header">
-                <div className="close-button" onClick={(e) => { hideModal() }}>
+                <div className="close-button" onClick={(e) => { navigate(-1) }}>
                     X
                 </div>
             </div>

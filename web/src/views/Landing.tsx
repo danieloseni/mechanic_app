@@ -167,9 +167,15 @@ const Landing = (props: Props) => {
 
 
           <ul className="nav-links">
-            <li>Tow Service</li>
-            <li>Get a Mechanic</li>
-            <li>Contact us</li>
+            <li className='pointer' onClick= {e => {
+              //@ts-ignore
+              window.showTowServiceModal?.()
+            }}>Tow Service</li>
+            <li><Link to="/vehicles">Get a Mechanic</Link></li>
+            <li className='pointer' onClick= {e => {
+              //@ts-ignore
+              window.showContactModal?.()
+            }}>Contact us</li>
           </ul>
 
           <div className="copyright">

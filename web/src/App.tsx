@@ -23,6 +23,8 @@ import { Terms } from 'views/Terms';
 import { PrivacyPolicy } from 'views/PrivacyPolicy';
 import MaintenanceContainer from 'modals/maintenance/MaintenanceContainer';
 import AlertPopup from 'modals/alert-popup/AlertPopup';
+import ContactUs from 'modals/contact-us/ContactUs';
+import TowService from 'modals/tow-service/TowService';
 
 function App({getlivemechanics, user: {role}}:any) {
   document.title="Fixit - High quality mechanics at your fingers"
@@ -63,6 +65,8 @@ function App({getlivemechanics, user: {role}}:any) {
         <SelectiveNavbarRenderer />
         <MechanicRequest />
         <AlertPopup />
+        <ContactUs />
+        <TowService />
         <Routes>
 
             <Route path="/login" element={UnAuthOnlyRoute(<Login />)} />

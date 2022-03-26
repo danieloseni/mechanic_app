@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
+import {useNavigate} from 'react-router-dom';
 
 interface Props {
 }
 
 const MechanicRequest = (props: Props) => {
+    const navigate = useNavigate();
     const [firstname, updateFirstname] = useState<string>("");
     const [lastname, updateLastname] = useState<string>("");
     const [email, updateEmail] = useState<string>("");
