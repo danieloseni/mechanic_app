@@ -45,7 +45,7 @@ const ContactUs = (props: Props) => {
                 <div className="detail-box">
                     <div className="detail">
                         <div className="icon"><i className="fal fa-phone"></i></div>
-                        adaezeokezie08@gmail.com
+                        08185828749
                     </div>
 
                     <div className="detail">

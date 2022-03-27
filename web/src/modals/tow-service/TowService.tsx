@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 
 interface Props {
-    
+
 }
 
 const TowService = (props: Props) => {
@@ -26,7 +26,7 @@ const TowService = (props: Props) => {
         }
     }, [showModal])
 
-    
+
     return displayModal ? (
 
         <div className='blurred-modal'>
@@ -44,9 +44,10 @@ const TowService = (props: Props) => {
                 </div>
 
                 <div className="detail-box">
+
                     <div className="detail">
                         <div className="icon"><i className="fal fa-phone"></i></div>
-                        adaezeokezie08@gmail.com
+                        08185828749
                     </div>
 
                     <div className="detail">
@@ -54,7 +55,20 @@ const TowService = (props: Props) => {
                         adaezeokezie08@gmail.com
                     </div>
 
-                  
+                    <br />
+
+                    <div className="detail">
+                        <div className="icon"><i className="fal fa-phone"></i></div>
+                        08090796650
+                    </div>
+                    <div className="detail">
+                        <div className="icon"><i className="fal fa-envelope"></i></div>
+                        dayoonabamiro@gmail.com 
+                    </div>
+
+
+
+
 
                 </div>
             </div>
