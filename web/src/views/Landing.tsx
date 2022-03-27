@@ -8,9 +8,12 @@ import CarFix from 'images/carfix.png';
 import Think from 'images/think.png';
 import ContactBg from 'images/contact-bg.png';
 import LandingNavbar from 'layouts/LandingNavbar';
+import {useNavigate} from 'react-router-dom';
+
 interface Props { }
 
 const Landing = (props: Props) => {
+  const navigate = useNavigate();
   return (
     <div className="main montserrat">
 
@@ -52,7 +55,7 @@ const Landing = (props: Props) => {
           </div>
         </div>
 
-        <div className="service-card">
+        <div className="service-card pointer" onClick = {e => { navigate("/vehicles")}}>
           <div className="icon"><object data={Handshake} aria-label="tools" /></div>
 
           <div className="title">
@@ -64,7 +67,10 @@ const Landing = (props: Props) => {
           </div>
         </div>
 
-        <div className="service-card">
+        <div className="service-card pointer" onClick= {e => {
+              //@ts-ignore
+              window.showTowServiceModal?.()
+            }}>
           <div className="icon"><object data={TowTruck} aria-label="tools" /></div>
 
           <div className="title">

@@ -27,9 +27,9 @@ const AccountSettings = ({user}: Props) => {
 
 
                 <div className={`dropdown-menu ${(showPopup && "show")}`}>
-                    <div className="item" onClick={(e) => { navigate("/book-appointment") }}>
+                    {user?.role !== "mechanic" &&<div className="item" onClick={(e) => { navigate("/book-appointment") }}>
                         Schedule Maintenance
-                    </div>
+                    </div>}
                     <div className="item" onClick={(e) => { localStorage.setItem("loggedin", ""); window.location.href = "/login" }}>
                         Logout
                     </div>

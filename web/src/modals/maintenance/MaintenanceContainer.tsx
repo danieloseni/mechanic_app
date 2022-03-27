@@ -81,7 +81,6 @@ const MaintenanceContainer = (props: Props) => {
     }, [showModal])
 
     const onMechanicSelected = (detials: MechanicDetails) => {
-
         updateMechanicDetails(detials)
     }
 
