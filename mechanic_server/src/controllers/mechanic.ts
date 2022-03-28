@@ -14,14 +14,14 @@ const createToken = (id:string) => {
 }
 
 const get_mechanics = async (req:any, res:any) => {
-	console.log('mechanic endpoint hit')
 	const mechanics:any = await User.find({role: "mechanic"});
 	res.json(mechanics.map(({firstname, lastname, email, phone, _id}:any) => ({firstname, lastname, email, phone, _id})));
 
 }
 
 const register = async (req:any, res:any) => {
-	console.log('register was hit');
+	try{
+		console.log('register was hit');
 	const {firstname, lastname, email, password, phone} = req.body;
 	console.log(firstname, lastname,email,password,phone)
 
@@ -29,6 +29,10 @@ const register = async (req:any, res:any) => {
 	const { role, id} = user;
 
 	res.json({firstname, lastname, email, phone, role, id, jwt: createToken(id)});
+	}catch(ex){
+		res.status(400).json({message: "incorrect credentials"})
+	}
+	
 }
 
 const reject_request = async(req:any, res:any) => {

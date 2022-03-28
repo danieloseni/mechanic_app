@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { register as registerAction } from 'redux/actions/userActions';
 
 interface Props {
-  register?: (credentials: RegistrationCredentials) => void,
+  register?: (credentials: RegistrationCredentials, onValidationError: () => void) => void,
   user?: UserInfo
 }
 
@@ -16,6 +16,8 @@ const MechanicRegister = ({ register, user }: Props) => {
   const [lastname, updateLastname] = useState<string>("");
   const [phone, updatePhone] = useState<string>("");
   const [loading, updateLoadingStatus] = useState<boolean>(false);
+  const [error, updateError] = useState<string>("");
+
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     switch (e.target.name) {
@@ -43,10 +45,17 @@ const MechanicRegister = ({ register, user }: Props) => {
     e.preventDefault();
     updateLoadingStatus(true)
 
+    updateError("")
+
+    const onValidationError = () => {
+        updateLoadingStatus(false)
+        updateError("Ensure all fields are properly filled")
+    }
+
     if(!loading)
     register?.({
       email, password, firstname, lastname, phone
-    })
+    }, onValidationError)
   }
 
   return (
@@ -100,6 +109,10 @@ const MechanicRegister = ({ register, user }: Props) => {
               />
             </div>
 
+            {error && error?.trim?.() !== "" &&<div className="error-text">
+                        {error}
+                            </div>}
+
             <div className="form-button-box"><button className="cta">{loading ? "Hold on..." : "Create account"}</button></div>
 
             <div className="alternate-action-box space-between 
@@ -121,7 +134,7 @@ const mapStateToProps = (state: any) => ({
 })
 
 const mapDispatchToProps = (dispatch: any) => ({
-  register: (credentials: RegistrationCredentials) => { dispatch(registerAction(credentials, "mechanic")) }
+  register: (credentials: RegistrationCredentials, onValidationError: () => void) => { dispatch(registerAction(credentials, "mechanic", onValidationError)) }
 })
 
 

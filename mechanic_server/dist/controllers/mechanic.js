@@ -20,17 +20,21 @@ const createToken = (id) => {
     });
 };
 const get_mechanics = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log('mechanic endpoint hit');
     const mechanics = yield User.find({ role: "mechanic" });
     res.json(mechanics.map(({ firstname, lastname, email, phone, _id }) => ({ firstname, lastname, email, phone, _id })));
 });
 const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log('register was hit');
-    const { firstname, lastname, email, password, phone } = req.body;
-    console.log(firstname, lastname, email, password, phone);
-    const user = yield User.create({ firstname, lastname, email, password, phone, role: "mechanic" });
-    const { role, id } = user;
-    res.json({ firstname, lastname, email, phone, role, id, jwt: createToken(id) });
+    try {
+        console.log('register was hit');
+        const { firstname, lastname, email, password, phone } = req.body;
+        console.log(firstname, lastname, email, password, phone);
+        const user = yield User.create({ firstname, lastname, email, password, phone, role: "mechanic" });
+        const { role, id } = user;
+        res.json({ firstname, lastname, email, phone, role, id, jwt: createToken(id) });
+    }
+    catch (ex) {
+        res.status(400).json({ message: "incorrect credentials" });
+    }
 });
 const reject_request = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { jobId } = req.body;

@@ -23,18 +23,20 @@ const createToken = (id) => {
     });
 };
 const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log('register was hit');
-    const { firstname, lastname, email, password, phone } = req.body;
-    const user = yield User.create({ firstname, lastname, email, password, phone, role: "client" });
-    const { role, id } = user;
-    res.json({ firstname, lastname, email, phone, role, id, jwt: createToken(id) });
+    try {
+        const { firstname, lastname, email, password, phone } = req.body;
+        const user = yield User.create({ firstname, lastname, email, password, phone, role: "client" });
+        const { role, id } = user;
+        res.json({ firstname, lastname, email, phone, role, id, jwt: createToken(id) });
+    }
+    catch (ex) {
+        res.status(400).json({ message: "incorrect credentials" });
+    }
 });
 const add_vehicle = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log('vehicle registration was hit');
     const { brand, make, model, color, plateNumber } = req.body;
     const tokenDetails = yield getTokenFromHeaders(req);
     if (tokenDetails) {
-        console.log(tokenDetails);
         const vehicle = yield Vehicle.create({ brand, make, model, color, plateNumber, userId: tokenDetails.id });
         res.json(vehicle);
     }
@@ -47,7 +49,6 @@ const add_vehicle = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 const get_vehicles = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const tokenDetails = yield getTokenFromHeaders(req);
     if (tokenDetails) {
-        console.log(tokenDetails);
         const vehicles = yield Vehicle.find({ userId: tokenDetails.id });
         res.json(vehicles);
     }

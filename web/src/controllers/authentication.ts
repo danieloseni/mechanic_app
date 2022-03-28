@@ -22,10 +22,11 @@ export const login = (credentials: LoginCredentials, onSuccess: LoginSuccessFunc
     const onTimeout = () => {
 
     }
+    
     new AxiosClient(loginuser, onSuccessful, onError, onTimeout).postWithoutConversion(credentials);
 }
 
-export const register = (credentials: RegistrationCredentials,role: "mechanic" | "client", onSuccess: RegisterSuccessFunction, onFailed: RegisterFailedFunction) => {
+export const register = (credentials: RegistrationCredentials,role: "mechanic" | "client", onSuccess: RegisterSuccessFunction, onFailed: RegisterFailedFunction, onValidationError: () => void) => {
    
     const onSuccessful = (response:any) => {
         const {firstname, lastname, email, jwt:token, id:userId, phone, role} = response.data;
@@ -35,6 +36,9 @@ export const register = (credentials: RegistrationCredentials,role: "mechanic" |
     }
 
     const onError = (error:any) => {
+        if(error?.response?.status === 400){
+            onValidationError()
+        }
     }
 
     const onTimeout = () => {

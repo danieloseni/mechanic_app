@@ -24,7 +24,7 @@ export const login = (credentials: LoginCredentials, onWrongLogins?: () => void)
     
 }
 
-export const register = (credentials: RegistrationCredentials, role: "mechanic" | "client") => {
+export const register = (credentials: RegistrationCredentials, role: "mechanic" | "client", onValidationError: () => void) => {
 
     return (dispatch:any, getState:any) => {
         const onSuccess = (details: UserInfo) => {
@@ -42,7 +42,7 @@ export const register = (credentials: RegistrationCredentials, role: "mechanic" 
 
         }
 
-        RegistrationController(credentials, role, onSuccess, onFailed);
+        RegistrationController(credentials, role, onSuccess, onFailed, onValidationError);
     }
     
 }

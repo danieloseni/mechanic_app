@@ -13,7 +13,6 @@ const jwt = require('jsonwebtoken');
 module.exports = (req) => {
     return new Promise((resolve, reject) => {
         var _a, _b, _c;
-        console.log(req.headers);
         const token = (_c = (_b = (_a = req.headers) === null || _a === void 0 ? void 0 : _a.authorization) === null || _b === void 0 ? void 0 : _b.split) === null || _c === void 0 ? void 0 : _c.call(_b, " ")[1];
         jwt.verify(token, process.env.tokenDecodeString, (err, decodedToken) => __awaiter(void 0, void 0, void 0, function* () {
             if (err) {

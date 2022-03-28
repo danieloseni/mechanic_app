@@ -2,35 +2,18 @@ export {}
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose')
+
 const clientRoutes = require("./routes/client");
 const mechanicRoutes = require("./routes/mechanic");
 const generalRoutes = require('./routes/general');
+
 const {initialize} = require('./adapters/firebase/app');
+
 const {set, setRequest, MechanicRequest} = require('./adapters/firebase/firestore/firestorecontroller');
 
 
 const app = express();
 
-// interface MechanicRequest{
-// 	jobId: string
-// 	client: {
-// 		firstname: string,
-// 		lastname: string,
-// 		email:string, 
-// 		phone: string,
-// 		id: string
-// 	},
-// 	mechanicId: string,
-// 	vehicle: {
-// 		brand: string,
-// 		make: string,
-// 		model: string,
-// 		plateNumber: string,
-// 		color: string
-// 	},
-// 	declined: boolean
-
-// }
 
 //initialize firebase app
 initialize();
@@ -39,8 +22,10 @@ initialize();
 
 app.use(express.json());
 app.use(cors());
+
 app.use("/client", clientRoutes);
 app.use("/mechanics", mechanicRoutes);
+
 app.use(generalRoutes);
 
 app.get("/", (req:any, res:any) => {

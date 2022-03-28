@@ -18,23 +18,28 @@ const createToken = (id:string) => {
 }
 
 const register = async (req:any, res:any) => {
-	console.log('register was hit');
-	const {firstname, lastname, email, password, phone} = req.body;
 
-	const user = await User.create({firstname, lastname, email, password, phone, role: "client"});
-	const { role, id} = user;
+	try{
+		const {firstname, lastname, email, password, phone} = req.body;
+		const user = await User.create({firstname, lastname, email, password, phone, role: "client"});
+		const { role, id} = user;
 
-	res.json({firstname, lastname, email, phone, role, id, jwt: createToken(id)});
+		res.json({firstname, lastname, email, phone, role, id, jwt: createToken(id)});
+	}catch(ex){
+		res.status(400).json({message: "incorrect credentials"})
+	}
+	
+	
 }
 
 const add_vehicle = async (req:any, res:any) => {
-	console.log('vehicle registration was hit');
+	
 	const {brand, make, model, color, plateNumber} = req.body;
 
 	const tokenDetails = await getTokenFromHeaders(req);
 
 	if(tokenDetails){
-		console.log(tokenDetails);
+		
 		const vehicle = await Vehicle.create({brand, make, model, color, plateNumber, userId: tokenDetails.id});
 		res.json(vehicle);
 
@@ -52,7 +57,7 @@ const get_vehicles = async (req:any, res:any) => {
 	const tokenDetails = await getTokenFromHeaders(req);
 
 	if(tokenDetails){
-		console.log(tokenDetails);
+		
 		const vehicles = await Vehicle.find({userId: tokenDetails.id});
 		res.json(vehicles);
 

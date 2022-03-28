@@ -20,10 +20,8 @@ const createToken = (id) => {
     });
 };
 const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(req.body);
     try {
         const { email, password } = req.body;
-        console.log(email, password);
         const user = yield User.login(email, password);
         const { firstname, lastname, email: loginEmail, phone, role, id } = user;
         res.json({ firstname, lastname, email: loginEmail, phone, role, id, jwt: createToken(id) });
@@ -39,7 +37,6 @@ const get_jobs = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const userDetails = yield User.findById(id);
         let jobs = null;
         if (userDetails.role === "mechanic") {
-            console.log('its mechanic');
             jobs = yield Job.find({ assignedMechanic: id }).populate("userId").populate("vehicleId").populate("assignedMechanic");
         }
         else {

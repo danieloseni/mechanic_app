@@ -13,10 +13,9 @@ const createToken = (id:string) => {
     })
 }
 const login = async (req:any, res:any) => {
-	console.log(req.body)
+	
 	try{
 		const {email, password} = req.body;
-				console.log(email,password)
 
 		const user = await User.login(email, password)
 		const {firstname, lastname, email:loginEmail, phone, role, id} = user
@@ -36,13 +35,14 @@ const get_jobs = async (req:any, res:any) => {
 		const userDetails = await User.findById(id);
 		let jobs:any = null
 		if(userDetails.role === "mechanic"){
-			console.log('its mechanic')
+			
 			jobs = await Job.find({assignedMechanic: id}).populate("userId").populate("vehicleId").populate("assignedMechanic")
 
 		}else {
 			jobs = await Job.find({userId: id}).populate("userId").populate("vehicleId").populate("assignedMechanic")
 
 		}
+		
 		res.json(jobs);
 		
 

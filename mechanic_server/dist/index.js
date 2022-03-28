@@ -9,25 +9,6 @@ const generalRoutes = require('./routes/general');
 const { initialize } = require('./adapters/firebase/app');
 const { set, setRequest, MechanicRequest } = require('./adapters/firebase/firestore/firestorecontroller');
 const app = express();
-// interface MechanicRequest{
-// 	jobId: string
-// 	client: {
-// 		firstname: string,
-// 		lastname: string,
-// 		email:string, 
-// 		phone: string,
-// 		id: string
-// 	},
-// 	mechanicId: string,
-// 	vehicle: {
-// 		brand: string,
-// 		make: string,
-// 		model: string,
-// 		plateNumber: string,
-// 		color: string
-// 	},
-// 	declined: boolean
-// }
 //initialize firebase app
 initialize();
 app.use(express.json());
