@@ -22,6 +22,7 @@ const MechanicSelection = ({ mechanics, onMechanicSelected, onButtonClick }: Pro
             </div>
 
             {
+                mechanics!?.length > 0 ?
                 mechanics?.map?.((mechanic) => {
                     const { firstname, lastname, email, phone } = mechanic
                     return <div className="mechanic-selection-tile " onClick = {(e) => {onClick(mechanic)}}>
@@ -46,6 +47,9 @@ const MechanicSelection = ({ mechanics, onMechanicSelected, onButtonClick }: Pro
 
                     </div>
                 })
+                :
+
+                <>Loading Please wait</>
             }
 
             {/*             
@@ -56,7 +60,7 @@ const MechanicSelection = ({ mechanics, onMechanicSelected, onButtonClick }: Pro
         </div>
     )
 }
-const mapStateToProps = (state: any) => ({
-    mechanics: state.mechanics
+const mapStateToProps = (state: any, ownProps:any) => ({
+    mechanics: ownProps.mechanics || state.mechanics
 })
 export default connect(mapStateToProps, null)(MechanicSelection)

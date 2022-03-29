@@ -4,6 +4,7 @@ import MechanicSelection from './MechanicSelection';
 import { MechanicDetails } from './../../interfaces/mechanic';
 import { addAppointment as AddAppointmentController } from 'controllers/appointment-controller';
 import { useNavigate } from 'react-router-dom';
+import { getMechanics as GetMechanicsController } from 'controllers/mechanic-controller';
 
 interface Props {
 
@@ -18,8 +19,24 @@ const MaintenanceContainer = (props: Props) => {
     const [progress, updateProgress] = useState<Progress>(Progress.DETAILS_ENTERING)
     const [details, updateDetails] = useState<AppointmentDetails>();
     const [mechanicDetails, updateMechanicDetails] = useState<MechanicDetails>();
+    const [mechanics, updateMechanics] = useState<MechanicDetails[]>([]);
+
 
     const [displayModal, updateModalVisibility] = useState<boolean>(true);
+
+    const getMechanics = useCallback(() => {
+  
+        const onSuccess = (mechanics: MechanicDetails[]) => {
+          updateMechanics(mechanics);
+        }
+    
+        const onFailed = () => {
+    
+        }
+    
+        GetMechanicsController(onSuccess, onFailed)
+    
+      }, [])
 
     const submit = () => {
         hideModal()
@@ -73,12 +90,13 @@ const MaintenanceContainer = (props: Props) => {
     useEffect(() => {
         //@ts-ignore
         window.showMaintenanceModal = showModal
+        getMechanics()
         return () => {
             //@ts-ignore
             window.showMaintenanceModal = null
 
         }
-    }, [showModal])
+    }, [showModal, getMechanics])
 
     const onMechanicSelected = (detials: MechanicDetails) => {
         updateMechanicDetails(detials)
@@ -102,7 +120,7 @@ const MaintenanceContainer = (props: Props) => {
                         <MaintenanceDetails {...{ onButtonClick, onDetailsUpdated }} />
 
                         :
-                        <MechanicSelection {...{ onButtonClick, onMechanicSelected }} />
+                        <MechanicSelection {...{ onButtonClick, mechanics, onMechanicSelected }} />
 
                 }
             </div>
