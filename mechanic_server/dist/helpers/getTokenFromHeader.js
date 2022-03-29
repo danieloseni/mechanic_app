@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const jwt = require('jsonwebtoken');
+// this function gets the token details from the header and returns the details to whatever function called it
 module.exports = (req) => {
     return new Promise((resolve, reject) => {
         var _a, _b, _c;

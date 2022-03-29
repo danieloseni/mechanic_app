@@ -1,6 +1,8 @@
 export {}
 const jwt = require('jsonwebtoken');
 
+
+// this function gets the token details from the header and returns the details to whatever function called it
 module.exports = (req:any) => {
 	return new Promise((resolve, reject) => {
 		

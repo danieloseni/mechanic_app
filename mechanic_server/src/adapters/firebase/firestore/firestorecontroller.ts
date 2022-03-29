@@ -6,6 +6,8 @@ let ref:any
 
 let usersRef:any;
 
+
+//this is the function that sets up firebase and prepares the database to be accessed
 const setup = async () => {
 	await initialize();
 	db = getDatabase();
@@ -13,6 +15,8 @@ const setup = async () => {
 	
 }
 
+
+//a test
 const set = async () => {
 	await setup();
 	usersRef = ref.child('users');
@@ -24,6 +28,8 @@ const set = async () => {
 	})
 }
 
+
+//an interface defining what a mechanic request must contain
 interface MechanicRequest{
 	jobId: string
 	client: {
@@ -45,6 +51,8 @@ interface MechanicRequest{
 
 }
 
+
+//This is the function for adding a request to firebase
 const setRequest = async (request: MechanicRequest) => {
 	await setup();
 	let requestRef = ref.child(`requests/${request.jobId}/${request.mechanicId}`);
@@ -52,7 +60,7 @@ const setRequest = async (request: MechanicRequest) => {
 	 requestRef.set(request)
 }
 
-
+//function for rejecting request
 const rejectRequest = async (request: MechanicRequest) => {
 	await setup();
 	let requestRef = ref.child(`requests/${request.jobId}/${request.mechanicId}`);
@@ -60,6 +68,8 @@ const rejectRequest = async (request: MechanicRequest) => {
 	 requestRef.update({declined: true})
 }
 
+
+//function for accepting request
 const acceptRequest = async (request: MechanicRequest) => {
 	await setup();
 	let jobRef = ref.child(`requests/${request.jobId}`);
@@ -69,5 +79,7 @@ const acceptRequest = async (request: MechanicRequest) => {
 	 requestRef.remove()
 	 jobRef.remove()
 }
+
+//export all firebase function
 
 module.exports = {set,  setRequest, rejectRequest, acceptRequest}

@@ -14,11 +14,13 @@ const { initialize } = require('../app');
 let db;
 let ref;
 let usersRef;
+//this is the function that sets up firebase and prepares the database to be accessed
 const setup = () => __awaiter(void 0, void 0, void 0, function* () {
     yield initialize();
     db = getDatabase();
     ref = db.ref();
 });
+//a test
 const set = () => __awaiter(void 0, void 0, void 0, function* () {
     yield setup();
     usersRef = ref.child('users');
@@ -29,18 +31,21 @@ const set = () => __awaiter(void 0, void 0, void 0, function* () {
         }
     });
 });
+//This is the function for adding a request to firebase
 const setRequest = (request) => __awaiter(void 0, void 0, void 0, function* () {
     yield setup();
     let requestRef = ref.child(`requests/${request.jobId}/${request.mechanicId}`);
     // requestRef.push().set(request)
     requestRef.set(request);
 });
+//function for rejecting request
 const rejectRequest = (request) => __awaiter(void 0, void 0, void 0, function* () {
     yield setup();
     let requestRef = ref.child(`requests/${request.jobId}/${request.mechanicId}`);
     // requestRef.push().set(request)
     requestRef.update({ declined: true });
 });
+//function for accepting request
 const acceptRequest = (request) => __awaiter(void 0, void 0, void 0, function* () {
     yield setup();
     let jobRef = ref.child(`requests/${request.jobId}`);
@@ -49,4 +54,5 @@ const acceptRequest = (request) => __awaiter(void 0, void 0, void 0, function* (
     requestRef.remove();
     jobRef.remove();
 });
+//export all firebase function
 module.exports = { set, setRequest, rejectRequest, acceptRequest };

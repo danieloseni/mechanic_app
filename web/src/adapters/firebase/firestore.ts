@@ -2,7 +2,7 @@ import app from './app';
 import { getDatabase, ref, set, onValue } from 'firebase/database';
 import { store } from 'redux/store';
 
-export const ap = app;
+const ap = app;
 const database = getDatabase();
 
 
@@ -20,7 +20,7 @@ export const updateMechanicLocation = (data: { latitude: number, longitude: numb
         longitude,
         date: new Date().toUTCString()
 
-    });
+    }).catch(err => {console.log(err)});
 }
 
 export const getRequests = (onUpdate: (data:any) => void) => {
