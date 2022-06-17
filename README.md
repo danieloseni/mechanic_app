@@ -33,6 +33,8 @@ The REST API that handles all requests from the client application.
 - To start the server `cd` into the `mechanic_server` and run `npm start`
 - Repeat step 4 in the `web` folder to run the web application as well.
 - Voilla! The app is now running. Accessible ports for each application will be displayed in each terminal.
+> Note: You have to have mongodb installed and setup.
+
 
 ## Hosting
 The web server was hosted on Heroku, and the web client, vercel. Follow the steps below to host on your preferred provider.
