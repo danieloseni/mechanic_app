@@ -1,7 +1,6 @@
 # FIXIT
 A system for the remote location and hiring of auto mechanics.
 ![Screenshot (5)](https://user-images.githubusercontent.com/45489948/174280182-257666b9-6eda-415e-8499-0c19d7eecc2e.png)
-![Screenshot (10)](https://user-images.githubusercontent.com/45489948/174280208-855f8b70-f86b-42e1-803a-62ffd55d99d0.png)
 ![Screenshot (12)](https://user-images.githubusercontent.com/45489948/174280211-c5414534-ea99-4a7b-8918-3bd41887bd72.png)
 
 ## Stack
