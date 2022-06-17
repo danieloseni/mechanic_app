@@ -1,6 +1,12 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 //This is the root application, it is where all the node server execution starts
+require("dotenv/config");
+const config_1 = __importDefault(require("./config"));
+const { port, database_url } = config_1.default;
 //import express. Express is used for creating backend services
 const express = require('express');
 //import the cors library. The cors library is used for configuring cross-origin resource sharing
@@ -32,13 +38,10 @@ app.get("/", (req, res) => {
         message: "here"
     });
 });
-//define the port to be either the one provided upon hosting or a default port of 5000 if the host doesn't provide a port
-const port = process.env.PORT || 5000;
 //connect to the database
-mongoose.connect(process.env.DATABASE_URL || 'mongodb://localhost/mechanic-app').then(() => {
+mongoose.connect(database_url).then(() => {
     //if connection to the databse was successful, start the server and listen on the defined port   
     app.listen(port, () => {
-        process.env.tokenDecodeString = 'A good man never hits a woman Because true power doesn\'t let little things get to them Only the weak see the needd to fight and hit people in every little situation';
         console.log(`Listening on ${port}`);
     });
 }).catch((err) => {

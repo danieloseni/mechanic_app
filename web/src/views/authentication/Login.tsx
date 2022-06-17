@@ -10,7 +10,7 @@ type Props = {
     user?: UserInfo
 }
 
-const Login = ({ login, user }: Props): ReactElement => {
+export const Login = ({ login, user }: Props): ReactElement => {
 
     const [email, updateEmail] = useState<string>("");
     const [password, updatePassword] = useState<string>("");

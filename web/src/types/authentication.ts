@@ -5,3 +5,4 @@ export type LoginFailedFunction = () => void
 
 export type RegisterSuccessFunction = (details: UserInfo) => void
 export type RegisterFailedFunction = () => void
+

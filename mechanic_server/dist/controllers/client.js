@@ -150,5 +150,5 @@ const add_appointment = (req, res) => __awaiter(void 0, void 0, void 0, function
 });
 //Export all the necessary controllers so it is available upon importation of the file
 module.exports = {
-    register, add_vehicle, get_vehicles, add_job, send_request, add_appointment
+    register, add_vehicle, get_vehicles, add_job, send_request, add_appointment, createToken
 };

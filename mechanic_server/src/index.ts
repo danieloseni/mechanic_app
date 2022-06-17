@@ -1,8 +1,9 @@
 export {}
 
 //This is the root application, it is where all the node server execution starts
-
-
+import 'dotenv/config'
+import config from './config';
+const {port,database_url} = config
 //import express. Express is used for creating backend services
 const express = require('express');
 
@@ -52,15 +53,13 @@ app.get("/", (req:any, res:any) => {
 	})
 })
 
-//define the port to be either the one provided upon hosting or a default port of 5000 if the host doesn't provide a port
-const port = process.env.PORT || 5000;
 
 
 //connect to the database
-mongoose.connect(process.env.DATABASE_URL || 'mongodb://localhost/mechanic-app').then(() => {
+mongoose.connect(database_url).then(() => {
 	//if connection to the databse was successful, start the server and listen on the defined port   
 	app.listen(port, () => {
-		process.env.tokenDecodeString = 'A good man never hits a woman Because true power doesn\'t let little things get to them Only the weak see the needd to fight and hit people in every little situation'
+		
 		console.log(`Listening on ${port}`);
 	})
 }).catch((err: any) => {

@@ -8,16 +8,21 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 //imort the jwt library
 const jwt = require('jsonwebtoken');
+const config_1 = __importDefault(require("../config"));
+const { tokenDecodeString } = config_1.default;
 //this function get the token from the request header, and makes it available to the controller by appending the details to the request object
 module.exports = (req, res, next) => {
     var _a, _b, _c;
     //get the token from the authorization value in the header
     const token = (_c = (_b = (_a = req.headers) === null || _a === void 0 ? void 0 : _a.authorization) === null || _b === void 0 ? void 0 : _b.split) === null || _c === void 0 ? void 0 : _c.call(_b, " ")[1];
     //ensure that the token is valid and decodable
-    jwt.verify(token, process.env.tokenDecodeString, (err, decodedToken) => __awaiter(void 0, void 0, void 0, function* () {
+    jwt.verify(token, tokenDecodeString, (err, decodedToken) => __awaiter(void 0, void 0, void 0, function* () {
         if (err) {
             //if there's an error, it means the token is invalid, therefore add null to the request object
             req.tokenDetails = null;
