@@ -1,5 +1,12 @@
 # FIXIT
 A system for the remote location and hiring of auto mechanics.
+![Screenshot (5)](https://user-images.githubusercontent.com/45489948/174280182-257666b9-6eda-415e-8499-0c19d7eecc2e.png)
+![Screenshot (6)](https://user-images.githubusercontent.com/45489948/174280193-21e533da-f005-47b7-bb6a-7f5f48778936.png)
+![Screenshot (7)](https://user-images.githubusercontent.com/45489948/174280198-17f13602-b070-4fed-bac4-bc57bf4f4737.png)
+![Screenshot (8)](https://user-images.githubusercontent.com/45489948/174280202-0b03438e-9267-42dc-82b4-f0c662ff9326.png)
+![Screenshot (9)](https://user-images.githubusercontent.com/45489948/174280206-ac1e8cab-95f2-49e9-a84d-14220325ff84.png)
+![Screenshot (10)](https://user-images.githubusercontent.com/45489948/174280208-855f8b70-f86b-42e1-803a-62ffd55d99d0.png)
+![Screenshot (12)](https://user-images.githubusercontent.com/45489948/174280211-c5414534-ea99-4a7b-8918-3bd41887bd72.png)
 
 ## Stack
 - React(Typescript)
