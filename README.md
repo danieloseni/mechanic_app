@@ -29,6 +29,18 @@ The REST API that handles all requests from the client application.
 - First of all clone the repository. To clone run:
   `git clone https://github.com/danieloseni/mechanic_app`
 - `cd` into the `mechanic_server` folder and run: `npm install`
+- Next, setup your necessary environment variables
+  Create a .env file in your `mechanic_server` folder. Copy the content of you [mechanic_server/.env.example file](mechanic_server/.env.example) into your newly created .env file. These are your environment variables.
+  1. FIREBASE_TYPE_PARAMETER
+  2. FIREBASE_PROJECT_ID
+  3. FIREBASE_PRIVATE_KEY_ID
+  4. FIREBASE_PRIVATE_KEY
+  5. FIREBASE_CLIENT_EMAIL
+  6. FIREBASE_CLIENT_ID
+  7. FIREBASE_AUTH_URI
+  8. FIREBASE_TOKEN_URI
+  9. FIREBASE_AUTH_PROVIDER_X509_CERT_URL
+  10. FIREBASE_CLIENT_X509_CERT_URL
 - `cd` into the `web` folder and run `npm install`
 - To start the server `cd` into the `mechanic_server` and run `npm start`
 - Repeat step 4 in the `web` folder to run the web application as well.
