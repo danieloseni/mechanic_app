@@ -27,5 +27,12 @@ The REST API that handles all requests from the client application.
 ## Hosting
 The web server was hosted on Heroku, and the web client, vercel. Follow the steps below to host on your preferred provider.
 ### Hosting the web server
-- 3 Environment variables need to be setup on the host for the web server to function properly
+- 3 Environment variables need to be setup on the host for the web server to function properly.
+  1. `PORT`: This tells the application what port to run on. Setup the listening port of your webserver by setting the `PORT` environment variable on your preferred host. The web server defaults to port 5000 if no port is specified.
+  2. `DATABASE_URL`: This server run on a mongodb database so a url to a mongodb instance will be required. [MongoDB Atlas](https://www.mongodb.com/atlas/database) can be used. Create a `DATABASE_URL` environment variable and set its value to your preferred mongodb instance url. The server defaults to mongodb://localhost/mechanic-app if no DATABASE_URL is set.
+  3. `tokenDecodeString`: The token decode string is the string that will be used to encode and decode user jwt tokens. Ensure that you setup a `tokenDecodeString` environment variable with your preferred decode string value. The server defaults to `A good man never hits a woman Because true power doesn\'t let little things get to them Only the weak see the needd to fight and hit people in every little situation` if no decode string is specified.
+- Once all Environment variables are setup, publish the [mechanic_server/dist](mechanic_server/dist) folder to your prefered host. 
+- Assuming all is set up well, everything should run correctly.
+> A docker image would be created soon to ease up the hosting.
+
 
