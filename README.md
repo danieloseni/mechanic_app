@@ -1,6 +1,13 @@
 # FIXIT
 A system for the remote location and hiring of auto mechanics.
 
+## Stack
+- React(Typescript)
+- Node and Express (Typescript)
+- MongoDB
+- Firebase
+- Node v16.13.1
+
 ## Sub-Systems
 This repository has 4 sub-systems
 
