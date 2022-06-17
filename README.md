@@ -35,4 +35,13 @@ The web server was hosted on Heroku, and the web client, vercel. Follow the step
 - Assuming all is set up well, everything should run correctly.
 > A docker image would be created soon to ease up the hosting.
 
+### Hosting the React app
+- 1 environment variable needs to be setup for the app to function properly
+  1. `REACT_APP_PROXY`: This variable tells the react app where to send all its API requests. if this variable is not set, the app defaults to `http://localhost:5000`/
+  > The link **MUST** be preceeded with `http://`.
+- Once all environment variables are set, run: ```npm run build```.
+- Then, publish the new created `build` folder to your preferred host.
+- If all is setup well, the app should be accessible and function properly.
+> A docker image would be provided soon to ease up the hosting.
+
 
