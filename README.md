@@ -29,10 +29,13 @@ The REST API that handles all requests from the client application.
 - First of all clone the repository. To clone run:
   `git clone https://github.com/danieloseni/mechanic_app`
 - `cd` into the `mechanic_server` folder and run: `npm install`
+- Next go to [your firebase console](https://console.firebase.google.com) and create a new project.
+- Then, click on your newly created firebase project and select realtime database.
+- Click `create database` and select `Start in test mode` from the popup
 - Next, setup your necessary environment variables. <br />
   Create a .env file in your `mechanic_server` folder.
   Copy the content of you [mechanic_server/.env.example](mechanic_server/.env.example) file into your newly created .env file. These are your environment variables. <br />
-  Variables i to x below are your firebase credentials and can be found by going to 
+  Variables i to x below are your firebase credentials and can be found by going to [your firebase console](https://console.firebase.google.com) > 
   1. FIREBASE_TYPE_PARAMETER
   2. FIREBASE_PROJECT_ID
   3. FIREBASE_PRIVATE_KEY_ID
