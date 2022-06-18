@@ -24,18 +24,17 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const admin = __importStar(require("firebase-admin"));
-const path = require('path');
+const firebase_config_1 = __importStar(require("../../firebase.config"));
 let app;
 //import the service account credentials. The service account credentials are what will be used to access firebase
-const serviceAccount = require("./firebase-service-account-key.json");
 const initialize = () => {
     return new Promise((resolve, reject) => {
         if (!app) {
-            console.log('here');
             //initialize firebase with all the necessary credentials 
             app = admin.initializeApp({
-                credential: admin.credential.cert(serviceAccount),
-                databaseURL: "https://mechanic-app-49aec-default-rtdb.firebaseio.com"
+                //@ts-ignore
+                credential: admin.credential.cert(firebase_config_1.default),
+                databaseURL: firebase_config_1.firebaseDatabaseUrl
             });
             setTimeout(() => {
                 resolve("");
