@@ -50,7 +50,7 @@ The REST API that handles all requests from the client application.
 
 - `cd` into the `web` folder and run `npm install`
 - To start the server `cd` into the `mechanic_server` and run `npm start`
-- Repeat step 4 in the `web` folder to run the web application as well.
+- Repeat the above step but in the `web` folder to run the web application as well.
 - Voilla! The app is now running. Accessible ports for each application will be displayed in each terminal.
 > Note: You have to have mongodb installed and setup.
 
